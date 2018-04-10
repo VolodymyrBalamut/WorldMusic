@@ -37,4 +37,8 @@ public class ArtistService {
         artistRepository.deleteById(id);
         return true;
     }
+
+    public List<Artist> getArtistByName(String name){
+        return artistRepository.findByName(name);
+    }
 }
