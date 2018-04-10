@@ -38,7 +38,7 @@ public class ClipController {
     }
 
     @DeleteMapping("/clips/{id}")
-    public void  updateClip(@PathVariable int id ){
+    public void  deleteClip(@PathVariable int id ){
         clipService.deleteClip(id);
     }
 }
