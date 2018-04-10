@@ -50,8 +50,8 @@ public class ArtistDAO implements IDAO<Artist>{
     }
 
     @Override
-    public boolean insert(Artist obj){
-        return false;
+    public Artist insert(Artist obj){
+        return null;
     }
 
     @Override

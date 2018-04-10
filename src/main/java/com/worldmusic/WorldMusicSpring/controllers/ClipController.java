@@ -26,6 +26,17 @@ public class ClipController {
     public Optional<Clip> getClip(@PathVariable int id){ return clipService.getClip(id);}
 
 
+    @GetMapping("/clips/{url}/show")
+    public List<Clip> getClipByName(@PathVariable String url){
+        return clipService.getClipByUrl(url);
+    }
+
+    @GetMapping("/clips/count")
+    public long getClipCount(){
+        return clipService.getCount();
+    }
+
+
     @PostMapping("/clips")
     public ResponseEntity<Clip> createClip(@RequestBody Clip clip) {
         Clip createdUser = clipService.addClip(clip);

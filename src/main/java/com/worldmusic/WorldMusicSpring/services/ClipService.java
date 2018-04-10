@@ -1,5 +1,6 @@
 package com.worldmusic.WorldMusicSpring.services;
 
+import com.worldmusic.WorldMusicSpring.model.Artist;
 import com.worldmusic.WorldMusicSpring.model.Clip;
 import com.worldmusic.WorldMusicSpring.repositories.ClipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,17 @@ public class ClipService {
             return clipRepository.findById(id);
     }
 
+    public List<Clip> getClipByUrl(String url){
+        return clipRepository.findByUrl(url);
+    }
+
+    public long getCount(){
+        return clipRepository.count();
+    }
+
+   /* public List<Clip> getClipArtist(int id){
+        return clipRepository.findByArtistId(id);
+    }*/
 
     public Clip addClip(Clip clip){
         clipRepository.save(clip);
