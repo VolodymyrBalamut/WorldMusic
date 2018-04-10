@@ -39,13 +39,14 @@ public class ClipController {
 
     @PostMapping("/clips")
     public ResponseEntity<Clip> createClip(@RequestBody Clip clip) {
-        Clip createdUser = clipService.addClip(clip);
-        return new ResponseEntity<Clip>(createdUser, HttpStatus.CREATED);
+        Clip createdClip = clipService.addClip(clip);
+        return new ResponseEntity<Clip>(createdClip, HttpStatus.CREATED);
     }
 
     @PutMapping("/clips/{id}")
-    public void updateClip(@RequestBody Clip clip) {
-         clipService.updateClip(clip);
+    public ResponseEntity<Clip> updateClip(@RequestBody Clip clip) {
+        Clip createdClip = clipService.updateClip(clip);
+        return new ResponseEntity<Clip>(createdClip, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/clips/{id}")
