@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StyleService {
@@ -20,9 +21,25 @@ public class StyleService {
                 .forEach(styles::add);
         return styles;
     }
+    public Optional<Style> getStyle(int id){
+        return styleRepository.findById(id);
+    }
+
 
     public Style addStyle(Style style){
         styleRepository.save(style);
         return style;
+    }
+    public Style updateStyle(Style style){
+        styleRepository.save(style);
+        return style;
+    }
+    public boolean deleteStyle(int id){
+        styleRepository.deleteById(id);
+        return true;
+    }
+
+    public List<Style> getStyleByName(String name){
+        return styleRepository.findByName(name);
     }
 }
