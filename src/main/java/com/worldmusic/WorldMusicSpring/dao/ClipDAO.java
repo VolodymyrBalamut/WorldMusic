@@ -1,6 +1,7 @@
 package com.worldmusic.WorldMusicSpring.dao;
 import com.worldmusic.WorldMusicSpring.dao.IDAO;
 import com.worldmusic.WorldMusicSpring.model.Clip;
+import com.worldmusic.WorldMusicSpring.model.Style;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -59,8 +60,8 @@ public class ClipDAO implements IDAO<Clip> {
                         PreparedStatement ps =connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                         ps.setString(1,obj.getName());
                         ps.setString(2, obj.getUrl());
-                        ps.setInt(3, obj.getPerformer_id());
-                        ps.setInt(4, obj.getStyle_id());
+                        //ps.setInt(3, obj.getPerformer_id());
+                        //ps.setInt(4, (Integer)((Style)(obj.getStyle()).getId()));
                         return ps;
                     }},
                 keyHolder);

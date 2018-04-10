@@ -20,6 +20,8 @@ public class Clip {
     private int id;
     private String name;
     private String url;
-    private int performer_id;
-    private int style_id;
+    @ManyToOne
+    private Artist artist;
+    @ManyToOne
+    private Style style;
 }

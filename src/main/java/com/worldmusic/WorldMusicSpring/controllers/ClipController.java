@@ -6,12 +6,10 @@ import com.worldmusic.WorldMusicSpring.services.ClipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class ClipController {
@@ -24,10 +22,23 @@ public class ClipController {
         return clipService.getAllClips();
     }
 
-    @PostMapping("/clip")
+    @GetMapping("/clips/{id}")
+    public Optional<Clip> getClip(@PathVariable int id){ return clipService.getClip(id);}
+
+
+    @PostMapping("/clips")
     public ResponseEntity<Clip> createClip(@RequestBody Clip clip) {
         Clip createdUser = clipService.addClip(clip);
         return new ResponseEntity<Clip>(createdUser, HttpStatus.CREATED);
     }
 
+    @PutMapping("/clips/{id}")
+    public void updateClip(@RequestBody Clip clip) {
+         clipService.updateClip(clip);
+    }
+
+    @DeleteMapping("/clips/{id}")
+    public void  deleteClip(@PathVariable int id ){
+        clipService.deleteClip(id);
+    }
 }
