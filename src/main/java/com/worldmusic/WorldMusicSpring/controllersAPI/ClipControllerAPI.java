@@ -1,4 +1,4 @@
-package com.worldmusic.WorldMusicSpring.controllers;
+package com.worldmusic.WorldMusicSpring.controllersAPI;
 
 import com.worldmusic.WorldMusicSpring.model.Clip;
 import com.worldmusic.WorldMusicSpring.services.ClipService;
@@ -6,55 +6,49 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import  org.springframework.ui.Model;
-import org.springframework.stereotype.Controller;
 
 import java.util.List;
 import java.util.Optional;
 
-@Controller
-public class ClipController {
+@RestController
+public class ClipControllerAPI {
 
     @Autowired
     private ClipService clipService;
 
-    @GetMapping("/greeting")
-    public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
-        model.addAttribute("name", name);
-        model.addAttribute("clips",clipService.getAllClips());
-        return "clips/greeting";
+    @GetMapping("/api/clips")
+    public List<Clip> getClips() {
+        return clipService.getAllClips();
     }
 
-    @GetMapping("/clips")
-    public String getClips(Model model) {
-        model.addAttribute("clips",clipService.getAllClips());
-        return "clips/index";
-    }
-
-    @GetMapping("/clips/{id}")
+    @GetMapping("/api/clips/{id}")
     public Optional<Clip> getClip(@PathVariable int id){ return clipService.getClip(id);}
 
 
-    @GetMapping("/clips/{url}/show")
+    @GetMapping("/api/clips/{url}/show")
     public List<Clip> getClipByName(@PathVariable String url){
         return clipService.getClipByUrl(url);
     }
 
+    @GetMapping("/api/clips/count")
+    public long getClipCount(){
+        return clipService.getCount();
+    }
 
-    @PostMapping("/clips")
+
+    @PostMapping("/api/clips")
     public ResponseEntity<Clip> createClip(@RequestBody Clip clip) {
         Clip createdClip = clipService.addClip(clip);
         return new ResponseEntity<Clip>(createdClip, HttpStatus.CREATED);
     }
 
-    @PutMapping("/clips/{id}/update")
+    @PutMapping("/api/clips/{id}")
     public ResponseEntity<Clip> updateClip(@RequestBody Clip clip) {
         Clip createdClip = clipService.updateClip(clip);
         return new ResponseEntity<Clip>(createdClip, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/clips/{id}/delete")
+    @DeleteMapping("/api/clips/{id}")
     public void  deleteClip(@PathVariable int id ){
         clipService.deleteClip(id);
     }

@@ -1,4 +1,4 @@
-package com.worldmusic.WorldMusicSpring.controllers;
+package com.worldmusic.WorldMusicSpring.controllersAPI;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.worldmusic.WorldMusicSpring.model.Artist;
@@ -18,7 +18,6 @@ import org.springframework.web.context.WebApplicationContext;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 import java.nio.charset.Charset;
-import java.util.List;
 
 import static org.hamcrest.core.IsEqual.equalTo;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -28,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ClipControllerTest {
+public class ClipControllerAPITest {
     private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
             MediaType.APPLICATION_JSON.getSubtype(),
             Charset.forName("utf8"));
@@ -45,13 +44,13 @@ public class ClipControllerTest {
 
     @Test
     public void testGetAllClips() throws Exception {
-        mockMvc.perform(get("/clips").accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/api/clips").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void testGetClip() throws Exception {
-        mockMvc.perform(get("/clips/50").accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/api/clips/50").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", equalTo(50)));
     }
@@ -66,7 +65,7 @@ public class ClipControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         String jsonInString = mapper.writeValueAsString(clip);
 
-        this.mockMvc.perform(post("/clips")
+        this.mockMvc.perform(post("/api/clips")
                 .contentType(contentType)
                 .content(jsonInString))
                 .andExpect(status().isCreated());
@@ -82,7 +81,7 @@ public class ClipControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         String jsonInString = mapper.writeValueAsString(clip);
 
-        this.mockMvc.perform(put("/clips/50")
+        this.mockMvc.perform(put("/api/clips/50")
                 .contentType(contentType)
                 .content(jsonInString))
                 .andExpect(status().isCreated());
@@ -92,7 +91,7 @@ public class ClipControllerTest {
     public void testDeleteClip() throws Exception {
         ClipService clipService = new ClipService();
         int id = 69;
-        mockMvc.perform(delete("/clips/"+id).accept(MediaType.APPLICATION_JSON))
+        mockMvc.perform(delete("/api/clips/"+id).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 

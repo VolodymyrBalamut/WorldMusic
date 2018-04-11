@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="template :: head">
+</head>
+<body>
+<div class="container">
+<table class="table">
+    <thead>
+    <th>#</th>
+    <th>Name</th>
+    <th>Url</th>
+    <th>Artist</th>
+    <th>Style</th>
+    </thead>
+    <tbody>
+    <td></td>
+    <th:block th:each="clip : ${clips}">
+        <tr>
+            <td th:text="${clip.id}">A Smoke Test'</td>
+            <td th:text="${clip.name}">A Smoke Test'</td>
+            <td th:text="${clip.url}">A Smoke Test'</td>
+            <td th:text="${clip.Artist}">A Smoke Test'</td>
+            <td th:text="${clip.Style}">A Smoke Test'</td>
+        </tr>
+    </th:block>
+</table>
+</div>
+
+<p th:replace="template::js"></p>
+</body>
+</html>
