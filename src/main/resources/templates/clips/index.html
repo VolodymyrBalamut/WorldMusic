@@ -4,6 +4,14 @@
 </head>
 <body>
 <div class="container">
+    <nav th:replace="template::menu"></nav>
+    <h1 class="text-center">Clips</h1>
+    <div class="row addButton">
+        <div class="col-md-10"></div>
+        <div class="col-md-2">
+            <a href='clips/create' class="btn btn-primary addButton">Add Clip</a>
+        </div>
+    </div>
 <table class="table">
     <thead>
     <th>#</th>
@@ -19,13 +27,15 @@
             <td th:text="${clip.id}">A Smoke Test'</td>
             <td th:text="${clip.name}">A Smoke Test'</td>
             <td th:text="${clip.url}">A Smoke Test'</td>
-            <td th:text="${clip.Artist}">A Smoke Test'</td>
-            <td th:text="${clip.Style->name}">A Smoke Test'</td>
+            <td th:text="${clip.Artist!=null}?${clip.Artist.name}:'null'">A Smoke Test'</td>
+            <td th:text="${clip.Style!=null}?${clip.Style.name}:'null'">A Smoke Test'</td>
         </tr>
     </th:block>
 </table>
+    <footer th:replace="template::footer"></footer>
 </div>
 
 <p th:replace="template::js"></p>
+
 </body>
 </html>
