@@ -22,7 +22,7 @@ public class ClipControllerAPI {
     }
 
     @GetMapping("/api/clips/{id}")
-    public Optional<Clip> getClip(@PathVariable int id){ return clipService.getClip(id);}
+    public Clip getClip(@PathVariable int id){ return clipService.getClip(id);}
 
 
     @GetMapping("/api/clips/{url}/show")

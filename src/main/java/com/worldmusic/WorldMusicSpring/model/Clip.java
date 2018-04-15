@@ -24,11 +24,13 @@ public class Clip {
     private Artist artist;
     @ManyToOne
     private Style style;
+    @ManyToOne
+    private Country country;
 
-    public Clip(String name, String url, int artistId, int styleId) {
+    /*public Clip(String name, String url, int artistId, int styleId) {
         this.name = name;
         this.url = url;
         this.artist = new Artist(artistId,"","","");
         this.style = new Style(styleId,"","");
-    }
+    }*/
 }

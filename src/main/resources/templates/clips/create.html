@@ -37,6 +37,15 @@
                         </option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label name="style_id">Country:</label>
+                    <select class="form-control" name="country_id">
+                        <option  th:each="country : ${countries}"
+                                 th:value="${country.id}"
+                                 th:text="${country.name}">
+                        </option>
+                    </select>
+                </div>
                 <input class="btn btn-primary" type=submit value="create">
             </form>
         </div>

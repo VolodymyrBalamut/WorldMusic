@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="template :: head">
+</head>
+<body>
+<div class="container">
+    <nav th:replace="template::menu"></nav>
+    <h1 class="text-center">Add clip</h1>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+
+           ID: <h1 th:text="${clip.id}">Text</h1>
+           Name: <h2 th:text="${clip.name}">Text</h2>
+           URl: <h3 th:text="${clip.url}">Text</h3>
+           Artist: <p th:text="${clip.Artist!=null}?${clip.Artist.name}:'null'">A Smoke Test'</p>
+           Style: <p th:text="${clip.Style!=null}?${clip.Style.name}:'null'">A Smoke Test'</p>
+           Country: <p th:text="${clip.Country!=null}?${clip.Country.name}:'null'">A Smoke Test'</p>
+        </div>
+
+    </div>
+    <footer th:replace="template::footer"></footer>
+    <p th:replace="template::js"></p>
+    <script src= "parsley.min.js"></script>
+</body>
+</html>

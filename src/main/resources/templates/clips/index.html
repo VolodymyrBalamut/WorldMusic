@@ -19,6 +19,8 @@
     <th>Url</th>
     <th>Artist</th>
     <th>Style</th>
+    <th>Country</th>
+    <th></th>
     </thead>
     <tbody>
     <td></td>
@@ -29,6 +31,8 @@
             <td th:text="${clip.url}">A Smoke Test'</td>
             <td th:text="${clip.Artist!=null}?${clip.Artist.name}:'null'">A Smoke Test'</td>
             <td th:text="${clip.Style!=null}?${clip.Style.name}:'null'">A Smoke Test'</td>
+            <td th:text="${clip.Country!=null}?${clip.Country.name}:'null'">A Smoke Test'</td>
+            <td><a th:href="@{'clips/' + ${clip.id}}">View</a></td>
         </tr>
     </th:block>
 </table>

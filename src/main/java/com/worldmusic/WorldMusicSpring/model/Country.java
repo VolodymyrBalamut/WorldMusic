@@ -5,11 +5,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name="countries")
 public class Country {
-    private String country_code;
-    private String country_name;
+    @Id
+    private String id;
+    private String name;
 }

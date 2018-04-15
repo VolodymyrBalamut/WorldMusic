@@ -2,9 +2,11 @@ package com.worldmusic.WorldMusicSpring.controllers;
 
 import com.worldmusic.WorldMusicSpring.model.Artist;
 import com.worldmusic.WorldMusicSpring.model.Clip;
+import com.worldmusic.WorldMusicSpring.model.Country;
 import com.worldmusic.WorldMusicSpring.model.Style;
 import com.worldmusic.WorldMusicSpring.services.ArtistService;
 import com.worldmusic.WorldMusicSpring.services.ClipService;
+import com.worldmusic.WorldMusicSpring.services.CountryService;
 import com.worldmusic.WorldMusicSpring.services.StyleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +31,10 @@ public class ClipController {
 
     @Autowired
     private StyleService styleService;
+
+    @Autowired
+    private CountryService countryService;
+
     //example
     @GetMapping("/greeting")
     public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
@@ -48,33 +54,39 @@ public class ClipController {
     public String getClipsCreate(Model model) {
         model.addAttribute("artists",artistService.getAllArtists());
         model.addAttribute("styles",styleService.getAllStyles());
+        model.addAttribute("countries",countryService.getAllCountries());
         return "clips/create";
     }
+
     @PostMapping("/clips/create")
     public String createClip(@RequestParam String name,
                              @RequestParam String url,
                              @RequestParam String artist_id,
                              @RequestParam String style_id,
+                             @RequestParam String country_id,
                              Model model) {
         Clip clip = new Clip();
         clip.setName(name);
         clip.setUrl(url);
         clip.setArtist(new Artist(Integer.parseInt(artist_id),"","",""));
         clip.setStyle(new Style(Integer.parseInt(style_id),"",""));
+        clip.setCountry(new Country(country_id,""));
         clipService.addClip(clip);
-        return "clips/index";
+        return "/clips/index";
     }
 
 
     @GetMapping("/clips/{id}")
-    public Optional<Clip> getClip(@PathVariable int id){ return clipService.getClip(id);}
+    public String getClip(@PathVariable int id, Model model){
+        model.addAttribute("clip",clipService.getClip(id));
+        return "/clips/show";
+    }
 
 
     @GetMapping("/clips/{url}/show")
     public List<Clip> getClipByName(@PathVariable String url){
         return clipService.getClipByUrl(url);
     }
-
 
 
 

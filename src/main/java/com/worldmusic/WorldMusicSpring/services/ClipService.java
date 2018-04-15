@@ -22,8 +22,8 @@ public class ClipService {
                 .forEach(clips::add);
         return clips;
     }
-    public Optional<Clip> getClip(int id){
-            return clipRepository.findById(id);
+    public Clip getClip(int id){
+        return clipRepository.findById(id).get();
     }
 
     public List<Clip> getClipByUrl(String url){
