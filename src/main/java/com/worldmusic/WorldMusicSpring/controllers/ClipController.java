@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import  org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 import java.util.Optional;
@@ -59,7 +60,7 @@ public class ClipController {
     }
 
     @PostMapping("/clips/create")
-    public String createClip(@RequestParam String name,
+    public RedirectView createClip(@RequestParam String name,
                              @RequestParam String url,
                              @RequestParam String artist_id,
                              @RequestParam String style_id,
@@ -72,7 +73,7 @@ public class ClipController {
         clip.setStyle(new Style(Integer.parseInt(style_id),"",""));
         clip.setCountry(new Country(country_id,""));
         clipService.addClip(clip);
-        return "/clips/index";
+        return new RedirectView("/clips");
     }
 
 
@@ -82,22 +83,44 @@ public class ClipController {
         return "/clips/show";
     }
 
-
+    /*
     @GetMapping("/clips/{url}/show")
     public List<Clip> getClipByName(@PathVariable String url){
         return clipService.getClipByUrl(url);
+    }*/
+
+
+    @GetMapping(value = "/clips/{id}/edit", name = "clips.edit")
+    public String updateClip(@PathVariable int id, Model model) {
+        model.addAttribute("clip",clipService.getClip(id));
+        model.addAttribute("artists",artistService.getAllArtists());
+        model.addAttribute("styles",styleService.getAllStyles());
+        model.addAttribute("countries",countryService.getAllCountries());
+        return "/clips/edit";
     }
 
-
-
-    @PutMapping("/clips/{id}/update")
-    public ResponseEntity<Clip> updateClip(@RequestBody Clip clip) {
-        Clip createdClip = clipService.updateClip(clip);
-        return new ResponseEntity<Clip>(createdClip, HttpStatus.CREATED);
+    @PostMapping("/clips/{id}/edit")
+    public RedirectView updateClip(@PathVariable int id,
+                                           @RequestParam String name,
+                                           @RequestParam String url,
+                                           @RequestParam String artist_id,
+                                           @RequestParam String style_id,
+                                           @RequestParam String country_id,
+                                           Model model) {
+        Clip clip = new Clip();
+        clip.setId(id);
+        clip.setName(name);
+        clip.setUrl(url);
+        clip.setArtist(new Artist(Integer.parseInt(artist_id),"","",""));
+        clip.setStyle(new Style(Integer.parseInt(style_id),"",""));
+        clip.setCountry(new Country(country_id,""));
+        clipService.updateClip(clip);
+        return new RedirectView("/clips");
     }
 
-    @DeleteMapping("/clips/{id}/delete")
-    public void  deleteClip(@PathVariable int id ){
+    @PostMapping("/clips/{id}/delete")
+    public RedirectView  deleteClip(@PathVariable int id, Model model ){
         clipService.deleteClip(id);
+        return new RedirectView("/clips");
     }
 }

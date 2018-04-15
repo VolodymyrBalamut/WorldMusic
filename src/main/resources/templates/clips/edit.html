@@ -10,21 +10,22 @@
         <div class="col-md-8 col-md-offset-2">
             <h1>Create Clip працює?</h1>
             <hr>
-            <form action="create" method="post">
+            <form action="edit" method="post">
                 <div class="form-group">
                     <label name="name">Clip Name:</label>
-                    <input id="name" name="name" class="form-control" required="" maxlength="255">
+                    <input id="name" name="name" class="form-control" th:value="${clip.name}" required="" maxlength="255">
                 </div>
                 <div class="form-group">
                     <label name="url">Clip Url:</label>
-                    <input id="url" name="url" class="form-control" required="" maxlength="255">
+                    <input id="url" name="url" class="form-control" th:value="${clip.url}" required="" maxlength="255">
                 </div>
                 <div class="form-group">
                     <label name="artist_id">Artist:</label>
                     <select class="form-control" name="artist_id">
                         <option  th:each="artist : ${artists}"
                                  th:value="${artist.id}"
-                                 th:text="${artist.name}">
+                                 th:text="${artist.name}"
+                                 th:selected="(${artist.id == clip.Artist.id})" >
                         </option>
                     </select>
                 </div>
@@ -33,7 +34,8 @@
                     <select class="form-control" name="style_id">
                         <option  th:each="style : ${styles}"
                                  th:value="${style.id}"
-                                 th:text="${style.name}">
+                                 th:text="${style.name}"
+                                 th:selected="(${style.id == clip.Style.id})" >
                         </option>
                     </select>
                 </div>
@@ -42,11 +44,12 @@
                     <select class="form-control" name="country_id">
                         <option  th:each="country : ${countries}"
                                  th:value="${country.id}"
-                                 th:text="${country.name}">
+                                 th:text="${country.name}"
+                                 th:selected="(${country.id == clip.Country.id})">
                         </option>
                     </select>
                 </div>
-                <input class="btn btn-primary" type=submit value="create">
+                <input class="btn btn-primary" type=submit value="edit">
             </form>
         </div>
         <footer th:replace="template::footer"></footer>

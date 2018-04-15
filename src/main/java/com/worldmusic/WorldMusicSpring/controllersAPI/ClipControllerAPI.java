@@ -42,6 +42,7 @@ public class ClipControllerAPI {
         return new ResponseEntity<Clip>(createdClip, HttpStatus.CREATED);
     }
 
+
     @PutMapping("/api/clips/{id}")
     public ResponseEntity<Clip> updateClip(@RequestBody Clip clip) {
         Clip createdClip = clipService.updateClip(clip);
