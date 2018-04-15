@@ -29,9 +29,13 @@
             <td th:text="${clip.id}">A Smoke Test'</td>
             <td th:text="${clip.name}">A Smoke Test'</td>
             <td th:text="${clip.url}">A Smoke Test'</td>
-            <td th:text="${clip.Artist!=null}?${clip.Artist.name}:'null'">A Smoke Test'</td>
-            <td th:text="${clip.Style!=null}?${clip.Style.name}:'null'">A Smoke Test'</td>
-            <td th:text="${clip.Country!=null}?${clip.Country.name}:'null'">A Smoke Test'</td>
+            <!--<td th:text="${clip.Artist!=null}?${clip.Artist.name}:'null'">A Smoke Test'</td>-->
+            <td th:text="${clip.Artist.name}"></td>
+            <td th:text="${clip.Style.name}"></td>
+            <td th:text="${clip.Country.name}"></td>
+            <!--<td th:text="${clip.Style!=null}?${clip.Style.name}:'null'"></td>
+            <td th:text="${clip.Country!=null}?${clip.Country.name}:'null'"></td>-->
+
             <td><a th:href="@{'clips/' + ${clip.id}}">View</a></td>
         </tr>
     </th:block>
