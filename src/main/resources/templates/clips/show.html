@@ -5,9 +5,10 @@
 <body>
 <div class="container">
     <nav th:replace="template::menu"></nav>
-    <h1 class="text-center">Clip show</h1>
+    <h1 class="text-center" th:text="${clip.name}">Text</h1>
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-8">
+
             <div id="countView" class="views"> перегляди</div>
             <iframe width="420" height="315"
                     th:src="@{'https://www.youtube.com/embed/' + ${clip.url}}"
@@ -19,21 +20,37 @@
             </div>
             <br>
             <input id="url" th:value="${clip.url}" hidden="true">
-           ID: <h1 th:text="${clip.id}">Text</h1>
-           Name: <h2 th:text="${clip.name}">Text</h2>
-           URl: <h3 th:text="${clip.url}">Text</h3>
-           Artist: <p th:text="${clip.Artist!=null}?${clip.Artist.name}:'null'">A Smoke Test'</p>
-           Style: <p th:text="${clip.Style!=null}?${clip.Style.name}:'null'">A Smoke Test'</p>
-           Country: <p th:text="${clip.Country!=null}?${clip.Country.name}:'null'">A Smoke Test'</p>
-           <a th:href="@{ ${clip.id} + '/edit'}" class="btn btn-primary">Edit</a>
-
-            <form method="POST" th:action="@{ ${clip.id} + '/delete'}">
-                <input type="submit" value="Delete" class="btn btn-danger">
-            </form>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-light mb-3" style="max-width: 18rem;">
+                <div class="card-header">Clip</div>
+                <div class="card-body">
+                    <p th:text="'Artist: ' + ${clip.Artist.name}"></p>
+                    <p th:text="'Style: ' + ${clip.Style.name}"></p>
+                    <p th:text="'Country: ' + ${clip.Country.name}"></p>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <a th:href="@{ ${clip.id} + '/edit'}" class="btn btn-primary btn-block">Edit</a>
+                        </div>
+                        <div class="col-sm-6">
+                            <form method="POST" th:action="@{ ${clip.id} + '/delete'}">
+                                <input type="submit" value="Delete" class="btn btn-danger btn-block">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <br>
+                            <a th:href="${'/clips'}" class="btn btn-default btn-block">Show all Clips</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         </div>
     </div>
 
-    </div>
+</div>
     <footer th:replace="template::footer"></footer>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <p th:replace="template::js"></p>
