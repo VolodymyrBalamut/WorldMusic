@@ -5,25 +5,27 @@
 <body>
 <div class="container">
     <nav th:replace="template::menu"></nav>
-    <h1 class="text-center">Add clip</h1>
+    <h1 class="text-center">Edit clip</h1>
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6 col-md-offset-3">
-            <form action="create" method="post">
+            <hr>
+            <form action="edit" method="post">
                 <div class="form-group">
                     <label name="name">Clip Name:</label>
-                    <input id="name" name="name" class="form-control" required="" maxlength="255">
+                    <input id="name" name="name" class="form-control" th:value="${clip.name}" required="" maxlength="255">
                 </div>
                 <div class="form-group">
                     <label name="url">Clip Url:</label>
-                    <input id="url" name="url" class="form-control" required="" maxlength="255">
+                    <input id="url" name="url" class="form-control" th:value="${clip.url}" required="" maxlength="255">
                 </div>
                 <div class="form-group">
                     <label name="artist_id">Artist:</label>
                     <select class="form-control" name="artist_id">
                         <option  th:each="artist : ${artists}"
                                  th:value="${artist.id}"
-                                 th:text="${artist.name}">
+                                 th:text="${artist.name}"
+                                 th:selected="(${artist.id == clip.Artist.id})" >
                         </option>
                     </select>
                 </div>
@@ -32,7 +34,8 @@
                     <select class="form-control" name="style_id">
                         <option  th:each="style : ${styles}"
                                  th:value="${style.id}"
-                                 th:text="${style.name}">
+                                 th:text="${style.name}"
+                                 th:selected="(${style.id == clip.Style.id})" >
                         </option>
                     </select>
                 </div>
@@ -41,19 +44,17 @@
                     <select class="form-control" name="country_id">
                         <option  th:each="country : ${countries}"
                                  th:value="${country.id}"
-                                 th:text="${country.name}">
+                                 th:text="${country.name}"
+                                 th:selected="(${country.id == clip.Country.id})">
                         </option>
                     </select>
                 </div>
-                <input class="btn btn-primary btn-block" type=submit value="Add Clip">
+                <input class="btn btn-primary btn-block" type=submit value="Update Clip">
             </form>
         </div>
-
-</div>
-
+    </div>
     <footer th:replace="template::footer"></footer>
-<p th:replace="template::js"></p>
-</div>
+    <p th:replace="template::js"></p>
     <script src= "parsley.min.js"></script>
 </body>
 </html>

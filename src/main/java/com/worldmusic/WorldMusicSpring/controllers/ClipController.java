@@ -1,16 +1,12 @@
 package com.worldmusic.WorldMusicSpring.controllers;
 
-import com.worldmusic.WorldMusicSpring.model.Artist;
-import com.worldmusic.WorldMusicSpring.model.Clip;
-import com.worldmusic.WorldMusicSpring.model.Country;
-import com.worldmusic.WorldMusicSpring.model.Style;
-import com.worldmusic.WorldMusicSpring.services.ArtistService;
-import com.worldmusic.WorldMusicSpring.services.ClipService;
-import com.worldmusic.WorldMusicSpring.services.CountryService;
-import com.worldmusic.WorldMusicSpring.services.StyleService;
+import com.worldmusic.WorldMusicSpring.model.*;
+import com.worldmusic.WorldMusicSpring.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import  org.springframework.ui.Model;
@@ -36,6 +32,9 @@ public class ClipController {
     @Autowired
     private CountryService countryService;
 
+    @Autowired
+    private UserService userService;
+
     //example
     @GetMapping("/greeting")
     public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
@@ -44,22 +43,29 @@ public class ClipController {
         return "clips/index";
     }
     //index
-    @GetMapping("/clips")
+    @GetMapping("/admin/clips")
     public String getClips(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+        model.addAttribute("user",user);
         model.addAttribute("clips",clipService.getAllClips());
+
         return "clips/index";
     }
 
     //create
-    @GetMapping("/clips/create")
+    @GetMapping("/admin/clips/create")
     public String getClipsCreate(Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+        model.addAttribute("user",user);
         model.addAttribute("artists",artistService.getAllArtists());
         model.addAttribute("styles",styleService.getAllStyles());
         model.addAttribute("countries",countryService.getAllCountries());
         return "clips/create";
     }
 
-    @PostMapping("/clips/create")
+    @PostMapping("/admin/clips/create")
     public RedirectView createClip(@RequestParam String name,
                              @RequestParam String url,
                              @RequestParam String artist_id,
@@ -77,8 +83,11 @@ public class ClipController {
     }
 
 
-    @GetMapping("/clips/{id}")
+    @GetMapping("/admin/clips/{id}")
     public String getClip(@PathVariable int id, Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+        model.addAttribute("user",user);
         model.addAttribute("clip",clipService.getClip(id));
         return "/clips/show";
     }
@@ -90,8 +99,11 @@ public class ClipController {
     }*/
 
 
-    @GetMapping(value = "/clips/{id}/edit", name = "clips.edit")
+    @GetMapping(value = "/admin/clips/{id}/edit", name = "clips.edit")
     public String updateClip(@PathVariable int id, Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+        model.addAttribute("user",user);
         model.addAttribute("clip",clipService.getClip(id));
         model.addAttribute("artists",artistService.getAllArtists());
         model.addAttribute("styles",styleService.getAllStyles());
@@ -99,7 +111,7 @@ public class ClipController {
         return "/clips/edit";
     }
 
-    @PostMapping("/clips/{id}/edit")
+    @PostMapping("/admin/clips/{id}/edit")
     public RedirectView updateClip(@PathVariable int id,
                                            @RequestParam String name,
                                            @RequestParam String url,
@@ -118,9 +130,10 @@ public class ClipController {
         return new RedirectView("/clips");
     }
 
-    @PostMapping("/clips/{id}/delete")
+    @PostMapping("/admin/clips/{id}/delete")
     public RedirectView  deleteClip(@PathVariable int id, Model model ){
         clipService.deleteClip(id);
         return new RedirectView("/clips");
     }
+
 }
