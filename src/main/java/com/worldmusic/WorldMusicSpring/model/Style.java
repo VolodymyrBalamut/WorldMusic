@@ -21,5 +21,7 @@ public class Style {
     private String name;
     private String description;
 
-}
+    @OneToMany(mappedBy = "style", cascade = CascadeType.ALL)
+    private  Set<Clip> clips;
 
+}
