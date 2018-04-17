@@ -22,4 +22,7 @@ public class Artist
     private String name;
     private String biography;
     private String country_code;
+    
+    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL)
+    private Set<Clip> clips;
 }
