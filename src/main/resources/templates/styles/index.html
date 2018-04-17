@@ -1,1 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="template :: head">
+</head>
+<body>
+<div class="container">
+    <nav th:replace="template::menu"></nav>
+    <h1 class="text-center">Styles</h1>
+    <div class="row addButton">
+        <div class="col-md-10"></div>
+        <div class="col-md-2">
+            <a href='styles/create' class="btn btn-primary addButton">Add Style</a>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+        <th>#</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th></th>
+        </thead>
+        <tbody>
+        <td></td>
+        <th:block th:each="style : ${styles}">
+            <tr>
+                <td th:text="${style.id}">A Smoke Test'</td>
+                <td th:text="${style.name}">A Smoke Test'</td>
+                <td th:text="${style.description}">A Smoke Test'</td>
+                
+                <td><a th:href="@{'/admin/styles/' + ${style.id}}">View</a></td>
+            </tr>
+        </th:block>
+    </table>
+    <footer th:replace="template::footer"></footer>
+</div>
 
+<p th:replace="template::js"></p>
+
+</body>
+</html>
