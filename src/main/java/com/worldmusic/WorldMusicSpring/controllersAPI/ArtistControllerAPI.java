@@ -22,7 +22,7 @@ public class ArtistControllerAPI {
     }
 
     @GetMapping("/api/artists/{id}")
-    public Optional<Artist> getArtist(@PathVariable int id){ return artistService.getArtist(id);}
+    public Artist getArtist(@PathVariable int id){ return artistService.getArtist(id);}
 
 
     @GetMapping("/api/artists/{name}/show")

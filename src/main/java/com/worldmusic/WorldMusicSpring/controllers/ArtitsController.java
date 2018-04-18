@@ -35,12 +35,12 @@ public class ArtitsController {
     private UserService userService;
 
     //example
-    @GetMapping("/greeting")
+    /*@GetMapping("/greeting")
     public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
         model.addAttribute("name", name);
         model.addAttribute("artists",artistService.getAllArtists());
         return "artists/index";
-    }
+    }*/
     //index
     @GetMapping("/admin/artists")
     public String getArtists(Model model) {
@@ -72,7 +72,7 @@ public class ArtitsController {
         artist.setBiography(biography);
         artist.setCountry_code(country_code);
         artistService.addArtist(artist);
-        return new RedirectView("/artists");
+        return new RedirectView("/admin/artists");
     }
 
 
@@ -82,7 +82,7 @@ public class ArtitsController {
         User user = userService.findUserByEmail(auth.getName());
         model.addAttribute("user",user);
         model.addAttribute("artist",artistService.getArtist(id));
-        return "/artists/show";
+        return "artists/show";
     }
 
 
@@ -93,7 +93,7 @@ public class ArtitsController {
         model.addAttribute("user",user);
         model.addAttribute("artist",artistService.getArtist(id));
         model.addAttribute("countries",countryService.getAllCountries());
-        return "/artists/edit";
+        return "artists/edit";
     }
 
     @PostMapping("/admin/artists/{id}/edit")
@@ -108,12 +108,12 @@ public class ArtitsController {
         artist.setBiography(biography);
         artist.setCountry_code(country_code);
         artistService.updateArtist(artist);
-        return new RedirectView("/artists");
+        return new RedirectView("/admin/artists");
     }
 
     @PostMapping("/admin/artists/{id}/delete")
     public RedirectView  deleteArtist(@PathVariable int id, Model model ){
         artistService.deleteArtist(id);
-        return new RedirectView("/artists");
+        return new RedirectView("/admin/artists");
     }
 }

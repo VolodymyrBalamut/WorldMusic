@@ -20,8 +20,8 @@ public class ArtistService {
                 .forEach(artists::add);
         return artists;
     }
-    public Optional<Artist> getArtist(int id){
-        return artistRepository.findById(id);
+    public Artist getArtist(int id){
+        return artistRepository.findById(id).get();
     }
 
 

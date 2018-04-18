@@ -79,7 +79,7 @@ public class ClipController {
         clip.setStyle(new Style(Integer.parseInt(style_id),"",""));
         clip.setCountry(new Country(country_id,""));
         clipService.addClip(clip);
-        return new RedirectView("/clips");
+        return new RedirectView("/admin/clips");
     }
 
 
@@ -127,7 +127,7 @@ public class ClipController {
         clip.setStyle(new Style(Integer.parseInt(style_id),"",""));
         clip.setCountry(new Country(country_id,""));
         clipService.updateClip(clip);
-        return new RedirectView("/clips");
+        return new RedirectView("/admin/clips");
     }
 
     @PostMapping("/admin/clips/{id}/delete")
