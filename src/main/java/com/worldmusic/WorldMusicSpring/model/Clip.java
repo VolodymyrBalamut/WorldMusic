@@ -21,6 +21,7 @@ public class Clip {
     private String name;
     private String url;
     @ManyToOne
+    //@JoinColumn(name = "artist_id")
     private Artist artist;
     @ManyToOne
     private Style style;

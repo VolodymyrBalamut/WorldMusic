@@ -21,8 +21,8 @@ public class StyleService {
                 .forEach(styles::add);
         return styles;
     }
-    public Optional<Style> getStyle(int id){
-        return styleRepository.findById(id);
+    public Style getStyle(int id){
+        return styleRepository.findById(id).get();
     }
 
 

@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="template :: head">
+</head>
+<body>
+<div class="container">
+    <nav th:replace="template::menu"></nav>
+    <h1 class="text-center" th:text="${artist.name}">Text</h1>
+    <div class="row">
+        <div class="col-md-8">
+           <table class="table">
+                <thead>
+                <th>#</th>
+                <th>Name</th>
+                <th>Url</th>
+                <th>Style</th>
+                <th>Country</th>
+                <th></th>
+                </thead>
+                <tbody>
+               <th:block th:each="clip : ${artist.clips}">
+                    <tr>
+                        <td th:text="${clip.id}"></td>
+                        <td th:text="${clip.name}"></td>
+                        <td th:text="${clip.url}"></td>
+                        <td th:text="${clip.Style.name}"></td>
+                        <td th:text="${clip.Country.name}"></td>
+                        <td><a th:href="@{'/admin/clips/' + ${clip.id}}">View</a></td>
+                    </tr>
+                </th:block>
+            </table>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card bg-light mb-3" style="max-width: 18rem;">
+                <div class="card-header">Artist</div>
+                <div class="card-body">
+                    <p th:text="'Biography: ' + ${artist.biography}"></p>
+                    <p th:text="'Country: ' + ${artist.country_code}"></p>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <a th:href="@{ ${artist.id} + '/edit'}" class="btn btn-primary btn-block">Edit</a>
+                        </div>
+                        <div class="col-sm-6">
+                            <form method="POST" th:action="@{ ${artist.id} + '/delete'}">
+                                <input type="submit" value="Delete" class="btn btn-danger btn-block">
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+</div>
+    <footer th:replace="template::footer"></footer>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <p th:replace="template::js"></p>
+    <script th:src= "@{/js/parsley.min.js}"></script>
+    <script th:src= "@{/js/fontawesome-all.min.js}"></script>
+    <script type="text/javascript">
+        $(function(){
+            var id = $("#url").val();
+            console.log(id);
+            $.ajax({
+                type:"GET",
+                url:"https://www.googleapis.com/youtube/v3/videos",
+                data:{
+                    id: id,
+                    key: 'AIzaSyBwVFsBBeaHY6AJLEiKjzJSan22jEaa7lQ',
+                    part: 'snippet,contentDetails,statistics,status'
+                },
+                success:function(data){
+                    var clip = data.items[0];
+                    console.log('success',clip);
+                    $('#countView').prepend(clip.statistics.viewCount);
+                    $('#countLike').prepend(clip.statistics.likeCount);
+                    $('#countDislike').prepend(clip.statistics.dislikeCount);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

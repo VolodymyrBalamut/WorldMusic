@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -23,6 +24,11 @@ public class Artist
     private String name;
     private String biography;
     private String country_code;
-   /* @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL)
-    private Set<Clip> clips;*/
+    @OneToMany(mappedBy = "artist")
+    private List<Clip> clips;
+
+    public Artist(int id){
+        this.id = id;
+    }
+
 }
