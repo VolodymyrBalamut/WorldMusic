@@ -24,9 +24,9 @@
                     <label name="style_id">Country:</label>
                     <select class="form-control" name="country_code">
                         <option  th:each="country : ${countries}"
-                                 th:value="${country.id}"
+                                 th:value="${country.code_id}"
                                  th:text="${country.name}"
-                                 th:selected="(${country.id == artist.country_code})">
+                                 th:selected="(${country.code_id == artist.country_code})">
                         </option>
                     </select>
                 </div>
@@ -34,6 +34,7 @@
             </form>
         </div>
     </div>
+</div>
     <footer th:replace="template::footer"></footer>
     <p th:replace="template::js"></p>
     <script src= "parsley.min.js"></script>

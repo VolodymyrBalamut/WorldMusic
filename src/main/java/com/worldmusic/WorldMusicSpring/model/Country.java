@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Builder
@@ -15,6 +16,16 @@ import javax.persistence.*;
 @Table(name="countries")
 public class Country {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String code_id;
     private String name;
+
+    @OneToMany(mappedBy = "country")
+    private List<Clip> clips;
+
+
+    public Country(int id){
+        this.id = id;
+    }
 }

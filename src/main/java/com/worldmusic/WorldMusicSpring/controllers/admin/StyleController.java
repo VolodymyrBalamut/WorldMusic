@@ -56,7 +56,7 @@ public class StyleController {
     }
 
     @PostMapping("/admin/styles/create")
-    public RedirectView createClip(@RequestParam String name,
+    public RedirectView createStyle(@RequestParam String name,
                                    @RequestParam String description,
                                    Model model) {
         Style style = new Style();
@@ -105,3 +105,4 @@ public class StyleController {
     }
 
 }
+

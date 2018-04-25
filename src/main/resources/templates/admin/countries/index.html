@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="template :: head">
+</head>
+<body>
+<div class="container">
+    <nav th:replace="template::menu"></nav>
+    <h1 class="text-center">Countries</h1>
+    <div class="row addButton">
+        <div class="col-md-10"></div>
+        <div class="col-md-2">
+            <a href='countries/create' class="btn btn-primary addButton">Add Country</a>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+        <th>#</th>
+        <th>Code_id</th>
+        <th>Name</th>
+        <th></th>
+        </thead>
+        <tbody>
+        <td></td>
+        <th:block th:each="country : ${countries}">
+            <tr>
+                <td th:text="${country.id}">A Smoke Test'</td>
+                <td th:text="${country.code_id}">A Smoke Test'</td>
+                <td th:text="${country.name}">A Smoke Test'</td>
+
+                <td><a th:href="@{'/admin/countries/' + ${country.id}}">View</a></td>
+            </tr>
+        </th:block>
+    </table>
+    <footer th:replace="template::footer"></footer>
+</div>
+
+<p th:replace="template::js"></p>
+
+</body>
+</html>
