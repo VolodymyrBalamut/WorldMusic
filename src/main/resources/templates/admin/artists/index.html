@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="template :: head">
+</head>
+<body>
+<div class="container">
+    <nav th:replace="template::menu"></nav>
+    <h1 class="text-center">Artists</h1>
+    <div class="row addButton">
+        <div class="col-md-10"></div>
+        <div class="col-md-2">
+            <a href='artists/create' class="btn btn-primary addButton">Add Artist</a>
+        </div>
+    </div>
+<table class="table">
+    <thead>
+    <th>#</th>
+    <th>Name</th>
+    <th>Biography</th>
+    <th>Country</th>
+    <th></th>
+    </thead>
+    <tbody>
+    <td></td>
+    <th:block th:each="artist : ${artists}">
+        <tr>
+            <td th:text="${artist.id}">A Smoke Test'</td>
+            <td th:text="${artist.name}">A Smoke Test'</td>
+            <td th:text="${artist.biography}">A Smoke Test'</td>
+
+            <td th:text="${artist.getCountry_code()}">A Smoke Test'</td>
+
+            <td><a th:href="@{'/admin/artists/' + ${artist.id}}">View</a></td>
+        </tr>
+    </th:block>
+</table>
+    <footer th:replace="template::footer"></footer>
+</div>
+
+<p th:replace="template::js"></p>
+
+</body>
+</html>
