@@ -77,7 +77,7 @@ public class ArtitsController {
         Artist artist = artistService.getArtist(id);
         model.addAttribute("user",user);
         model.addAttribute("artist",artist);
-        model.addAttribute("clips",artist.getClips());
+        //model.addAttribute("clips",artist.getClips());
         return "admin/artists/show";
     }
 
