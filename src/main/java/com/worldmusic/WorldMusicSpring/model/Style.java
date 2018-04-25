@@ -24,4 +24,7 @@ public class Style {
     @OneToMany(mappedBy = "style", cascade = CascadeType.ALL)
     private  Set<Clip> clips;*/
 
+    public Style(int id) {
+        this.id = id;
+    }
 }
