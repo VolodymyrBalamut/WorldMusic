@@ -15,6 +15,7 @@ import javax.persistence.*;
 @Table(name="countries")
 public class Country {
     @Id
+
     private String id;
     private String name;
 }
