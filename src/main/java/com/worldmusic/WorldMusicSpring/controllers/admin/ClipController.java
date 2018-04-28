@@ -13,6 +13,7 @@ import  org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -35,6 +36,8 @@ public class ClipController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private CommentService commentService;
     /*//example
     @GetMapping("/greeting")
     public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
@@ -79,7 +82,7 @@ public class ClipController {
         clip.setStyle(new Style(Integer.parseInt(style_id)));
         clip.setCountry(new Country(Integer.parseInt(country_id)));
         clipService.addClip(clip);
-        return new RedirectView("/admin/clips");
+        return new RedirectView("/admin/clips/"  + clip.getId());
     }
 
 
@@ -127,7 +130,24 @@ public class ClipController {
         clip.setStyle(new Style(Integer.parseInt(style_id)));
         clip.setCountry(new Country(Integer.parseInt(country_id)));
         clipService.updateClip(clip);
-        return new RedirectView("/admin/clips");
+        return new RedirectView("/admin/clips/" + clip.getId());
+    }
+
+    @PostMapping(value = "/admin/clips/{id}/comment", name = "clips.comment")
+    public RedirectView commentClip(@PathVariable int id,
+                              @RequestParam String commentText,
+                              Model model) {
+        Comment comment = new Comment();
+        Clip clip = clipService.getClip(id);
+        comment.setClip(clip);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+        comment.setUser(user);
+        comment.setComment(commentText);
+        commentService.addComment(comment);
+        model.addAttribute("user",user);
+        model.addAttribute("clip",clip);
+        return new RedirectView("/admin/clips/" + clip.getId());
     }
 
     @PostMapping("/admin/clips/{id}/delete")

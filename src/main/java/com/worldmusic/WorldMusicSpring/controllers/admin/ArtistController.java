@@ -19,7 +19,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 @Controller
-public class ArtitsController {
+public class ArtistController {
     @Autowired
     private ArtistService clipService;
 

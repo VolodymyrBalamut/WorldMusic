@@ -6,26 +6,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
-
+import java.util.Set;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="styles")
-public class Style {
+@Table(name="comments")
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
-    private String description;
-
-    @OneToMany(mappedBy = "style")
-    private List<Clip> clips;
-
-    public Style(int id) {
-        this.id = id;
-    }
+    private String comment;
+    @ManyToOne
+    private User user;
+    @ManyToOne
+    private Clip clip;
 }

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Data
@@ -28,6 +29,13 @@ public class Clip {
     @ManyToOne
     private Country country;
 
+    @OneToMany(mappedBy = "clip")
+    private List<Comment> comments;
+
+
+    public Clip(int id){
+        this.id = id;
+    }
     /*public Clip(String name, String url, int artistId, int styleId) {
         this.name = name;
         this.url = url;

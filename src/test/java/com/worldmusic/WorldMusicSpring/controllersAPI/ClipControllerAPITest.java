@@ -61,7 +61,7 @@ public class ClipControllerAPITest {
                 .name("Test").url("fdfd")
                 .build();
         clip.setArtist(new Artist(5,"","","",null));
-        clip.setStyle(new Style(1,"",""));
+        clip.setStyle(new Style(1));
         ObjectMapper mapper = new ObjectMapper();
         String jsonInString = mapper.writeValueAsString(clip);
 
@@ -77,7 +77,7 @@ public class ClipControllerAPITest {
                 .name("TestUpdate").url("fdfd")
                 .build();
         clip.setArtist(new Artist(5,"","","",null));
-        clip.setStyle(new Style(1,"",""));
+        clip.setStyle(new Style(1));
         ObjectMapper mapper = new ObjectMapper();
         String jsonInString = mapper.writeValueAsString(clip);
 

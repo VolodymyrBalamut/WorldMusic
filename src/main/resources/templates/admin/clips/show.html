@@ -20,18 +20,64 @@
             </div>
             <br>
             <input id="url" th:value="${clip.url}" hidden="true">
+            <hr>
+            <h3>Comments <small>1 total</small></h3>
+
+            <table class="table">
+                <thead>
+                <th>#</th>
+                <th>User</th>
+                <th>Body</th>
+                <th>Date</th>
+                <th></th>
+                </thead>
+                <tbody>
+                <th:block th:each="comment : ${clip.comments}">
+                    <tr>
+                        <td th:text="${comment.id}"></td>
+                        <td th:text="${comment.User.name}"></td>
+                        <td th:text="${comment.comment}"></td>
+                        <td>Date</td>
+                        <td>
+                        <a href="#" class="btn btn-xs btn-primary">
+                            <i class="fas fa-pencil-alt"></i>
+                        </a>
+                        <a href="#" class="btn btn-xs btn-danger">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                        </td>
+                    </tr>
+                </th:block>
+            </table>
+            <hr>
+            <form action="#" th:action="@{ ${clip.id} + '/comment'}" method="post">
+                <div class="form-group">
+                    <label name="commentText">Comment Text:</label>
+                    <input id="commentText" name="commentText" type="text" class="form-control" required="" maxlength="255">
+                </div>
+                <input class="btn btn-primary btn-block" type=submit value="Comment Clip">
+            </form>
         </div>
         <div class="col-md-4">
             <div class="card bg-light mb-3" style="max-width: 18rem;">
                 <div class="card-header">Clip</div>
                 <div class="card-body">
-                    <a th:href="@{'/admin/artists/' + ${clip.Artist.id}}">
-                     <p th:text="'Artist: ' + ${clip.Artist.name}"></p>
-                    </a>
-                    <a th:href="@{'/admin/styles/' + ${clip.Style.id}}">
-                        <p th:text="'Style: ' + ${clip.Style.name}"></p>
-                    </a>
-                    <p th:text="'Country: ' + ${clip.Country.name}"></p>
+                    <p>Artist:
+                        <a th:href="@{'/admin/artists/' + ${clip.Artist.id}}"
+                           th:text="${clip.Artist.name}">
+                        </a>
+                    </p>
+                    <p>Style:
+                        <a th:href="@{'/admin/styles/' + ${clip.Style.id}}"
+                           th:text="${clip.Style.name}">
+                        </a>
+                    </p>
+                    <p>Country:
+                        <a th:href="@{'/admin/countries/' + ${clip.Country.id}}"
+                           th:text="${clip.Country.name}">
+                        </a>
+                    </p>
+                    <!--<p th:text="'Country: ' + ${clip.Country.name}"></p>-->
                     <div class="row">
                         <div class="col-sm-6">
                             <a th:href="@{ ${clip.id} + '/edit'}" class="btn btn-primary btn-block">Edit</a>
@@ -82,5 +128,6 @@
             });
         });
     </script>
+<script  src="{{ URL::asset('js/fontawesome-all.min.js') }}" type="text/javascript"></script>
 </body>
 </html>
