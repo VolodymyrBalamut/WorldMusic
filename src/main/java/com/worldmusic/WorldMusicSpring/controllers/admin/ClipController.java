@@ -92,6 +92,7 @@ public class ClipController {
         User user = userService.findUserByEmail(auth.getName());
         model.addAttribute("user",user);
         model.addAttribute("clip",clipService.getClip(id));
+        model.addAttribute("commentCount", clipService.getCommentCount(id));
         return "admin/clips/show";
     }
 
@@ -135,8 +136,8 @@ public class ClipController {
 
     @PostMapping(value = "/admin/clips/{id}/comment", name = "clips.comment")
     public RedirectView commentClip(@PathVariable int id,
-                              @RequestParam String commentText,
-                              Model model) {
+                                    @RequestParam String commentText,
+                                    Model model) {
         Comment comment = new Comment();
         Clip clip = clipService.getClip(id);
         comment.setClip(clip);
@@ -149,6 +150,24 @@ public class ClipController {
         model.addAttribute("clip",clip);
         return new RedirectView("/admin/clips/" + clip.getId());
     }
+
+    @PostMapping(value = "/admin/clips/{id}/comment/delete", name = "clips.comment.delete")
+    public RedirectView deleteCommentClip(@PathVariable int id,
+                                          @RequestParam int commentId,
+                                    Model model) {
+        Comment comment = new Comment();
+        comment.setId(commentId);
+        Clip clip = clipService.getClip(id);
+        comment.setClip(clip);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+        comment.setUser(user);
+        commentService.deleteComment(comment.getId());
+        model.addAttribute("user",user);
+        model.addAttribute("clip",clip);
+        return new RedirectView("/admin/clips/" + clip.getId());
+    }
+
 
     @PostMapping("/admin/clips/{id}/delete")
     public RedirectView  deleteClip(@PathVariable int id, Model model ){

@@ -21,14 +21,15 @@
             <br>
             <input id="url" th:value="${clip.url}" hidden="true">
             <hr>
-            <h3>Comments <small>1 total</small></h3>
+            <h3>Comments <small th:text="${commentCount} + ' total'"></small></h3>
 
             <table class="table">
                 <thead>
                 <th>#</th>
                 <th>User</th>
                 <th>Body</th>
-                <th>Date</th>
+                <th>Created Date</th>
+                <th>Updated Date</th>
                 <th></th>
                 </thead>
                 <tbody>
@@ -37,14 +38,17 @@
                         <td th:text="${comment.id}"></td>
                         <td th:text="${comment.User.name}"></td>
                         <td th:text="${comment.comment}"></td>
-                        <td>Date</td>
+                        <td th:text="${#dates.format(comment.createdDate, 'dd-MM-yyyy HH:mm')}"></td>
+                        <td th:text="${#dates.format(comment.updatedDate, 'dd-MM-yyyy HH:mm')}"></td>
                         <td>
                         <a href="#" class="btn btn-xs btn-primary">
                             <i class="fas fa-pencil-alt"></i>
                         </a>
-                        <a href="#" class="btn btn-xs btn-danger">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
+                        <form th:action="@{${clip.id} + '/comment/delete'}" method="post">
+                            <input id="commentId" name="commentId" type="text" hidden
+                            th:value="${comment.id}"/>
+                            <button class="btn btn-xs btn-danger"><i class="fas fa-trash-alt"></i></button>
+                        </form>
                         </td>
                     </tr>
                 </th:block>

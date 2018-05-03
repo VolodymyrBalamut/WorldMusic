@@ -3,6 +3,7 @@ package com.worldmusic.WorldMusicSpring.controllers.admin;
 import com.worldmusic.WorldMusicSpring.model.Clip;
 import com.worldmusic.WorldMusicSpring.model.Comment;
 import com.worldmusic.WorldMusicSpring.model.User;
+import com.worldmusic.WorldMusicSpring.services.ClipService;
 import com.worldmusic.WorldMusicSpring.services.CommentService;
 import com.worldmusic.WorldMusicSpring.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class CommentController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private ClipService clipService;
 
 
 

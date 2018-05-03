@@ -33,5 +33,16 @@ dependencies {
 	//testCompile('org.springframework.security:spring-security-test')
 	compile 'org.postgresql:postgresql:9.4-1203-jdbc42'
 	compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+
+
+	/*Thymeleaf doesn`t use*/
+	// https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf
+	//compile group: 'org.thymeleaf', name: 'thymeleaf', version: '3.0.9.RELEASE'
+
+	// https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf-spring4
+	//compile group: 'org.thymeleaf', name: 'thymeleaf-spring4', version: '3.0.9.RELEASE'
+
+	// https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-java8time
+	//compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-java8time', version: '3.0.1.RELEASE'
 	//compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity4', version: '2.1.2.RELEASE'
 }

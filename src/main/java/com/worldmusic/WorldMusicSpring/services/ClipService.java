@@ -50,4 +50,9 @@ public class ClipService {
         clipRepository.deleteById(id);
         return true;
     }
+
+    public long getCommentCount(int id){
+        Clip clip = clipRepository.findById(id).get();
+        return clip.getComments().size();
+    }
 }
