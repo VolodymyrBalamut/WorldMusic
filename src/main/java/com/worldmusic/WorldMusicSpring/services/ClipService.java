@@ -2,6 +2,7 @@ package com.worldmusic.WorldMusicSpring.services;
 
 import com.worldmusic.WorldMusicSpring.model.Artist;
 import com.worldmusic.WorldMusicSpring.model.Clip;
+import com.worldmusic.WorldMusicSpring.model.User;
 import com.worldmusic.WorldMusicSpring.repositories.ClipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,9 +57,17 @@ public class ClipService {
         return clip.getComments().size();
     }
 
-
-    public void vote(int id){
+    public long getLikesCount(int id){
         Clip clip = clipRepository.findById(id).get();
+        return clip.getUserLikes().size();
+    }
 
+    public void vote(Clip clip, User user){
+        List<User> usersLikes = clip.getUserLikes();
+        usersLikes.add(user);
+        clip.setUserLikes(usersLikes);
+        int countLikes = clip.getCountLikes();
+        clip.setCountLikes(countLikes + 1);
+        clipRepository.save(clip);
     }
 }

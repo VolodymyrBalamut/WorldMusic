@@ -18,6 +18,14 @@
                 <span id="countLike"> <i class="fas fa-thumbs-up"></i></span>
                 <span id="countDislike"> <i class="fas fa-thumbs-down"></i></span>
             </div>
+            <!--section vote-->
+            <p th:text="${likesCount}"></p>
+            <form action="#" th:action="@{ ${clip.id} + '/vote'}" method="post">
+                <input class="btn btn-primary btn-block" type=submit value="Vote">
+            </form>
+
+            <!-- end of section vote-->
+
             <br>
             <input id="url" th:value="${clip.url}" hidden="true">
             <hr>

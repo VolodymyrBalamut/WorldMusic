@@ -37,8 +37,8 @@ public class Clip {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "voting",
-              joinColumns = @JoinColumn(name = "user_id"),
-              inverseJoinColumns = @JoinColumn(name = "clip_id"))
+              joinColumns = @JoinColumn(name = "clip_id"),
+              inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> userLikes;
 
     public Clip(int id){

@@ -49,6 +49,7 @@ public class ChartController {
         model.addAttribute("user",user);
         model.addAttribute("clip",clipService.getClip(id));
         model.addAttribute("commentCount", clipService.getCommentCount(id));
+        model.addAttribute("likesCount",clipService.getLikesCount(id));
         return "guest/clip";
     }
 
@@ -64,6 +65,18 @@ public class ChartController {
         comment.setUser(user);
         comment.setComment(commentText);
         commentService.addComment(comment);
+        model.addAttribute("user",user);
+        model.addAttribute("clip",clip);
+        return new RedirectView("/charts/clip/" + clip.getId());
+    }
+
+    @PostMapping(value = "/charts/clip/{id}/vote", name = "charts.clip.vote")
+    public RedirectView voteClip(@PathVariable int id,
+                                    Model model) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+        Clip clip = clipService.getClip(id);
+        clipService.vote(clip,user);
         model.addAttribute("user",user);
         model.addAttribute("clip",clip);
         return new RedirectView("/charts/clip/" + clip.getId());
