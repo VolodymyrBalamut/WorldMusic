@@ -2,6 +2,7 @@ package com.worldmusic.WorldMusicSpring.configuration;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -43,7 +44,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.
                 authorizeRequests()
-                .antMatchers("/").permitAll()
+                .antMatchers(HttpMethod.GET,"/",
+                                        "/charts/**").permitAll()
+                .antMatchers(HttpMethod.POST,"/charts/clip/{^[\\\\d]$}").hasAuthority("USER")
                 .antMatchers("/login").permitAll()
                 .antMatchers("/registration").permitAll()
                 .antMatchers("/api/**").permitAll()
@@ -67,6 +70,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                                         "/static/**",
                                         "/css/**",
                                         "/js/**",
-                                        "/images/**");
+                                        "/fontawesome/**",
+                                        "/img/**");
     }
 }

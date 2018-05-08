@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="template :: head">
+</head>
+<body>
+<div class="container">
+    <nav th:replace="template::menu"></nav>
+        <h1>Charts</h1>
+        <div class="row">
+            <div class="col-md-3" th:each="country : ${countries}">
+                <p th:text="${country.name}"></p>
+                <table class="table">
+                    <thead>
+                    <th>Ranking</th>
+                    <th>Name</th>
+                    </thead>
+                    <tbody>
+                    <td></td>
+                    <th:block th:each="clip : ${country.clips}">
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <a th:href="@{'/charts/clip/' + ${clip.id}}"
+                                   th:text="${clip.Artist.name} + '-' +${clip.name}">
+                                </a>
+                            </td>
+
+                        </tr>
+                    </th:block>
+                </table>
+            </div>
+        </div>
+
+
+    <footer th:replace="template::footer"></footer>
+</div>
+
+<p th:replace="template::js"></p>
+
+</body>
+</html>

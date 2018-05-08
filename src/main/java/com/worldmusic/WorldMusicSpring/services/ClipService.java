@@ -55,4 +55,10 @@ public class ClipService {
         Clip clip = clipRepository.findById(id).get();
         return clip.getComments().size();
     }
+
+
+    public void vote(int id){
+        Clip clip = clipRepository.findById(id).get();
+
+    }
 }

@@ -21,6 +21,14 @@ public class CountryService {
                 .forEach(countries::add);
         return countries;
     }
+
+    public List<Country> getCountriesWithClips(){
+        List<Country> countries = new ArrayList<>();
+        countryRepository.findDistinctByClipsNotNull()
+                .forEach(countries::add);
+        return countries;
+    }
+
     public Country getCountry(int id){
         return countryRepository.findById(id).get();
     }

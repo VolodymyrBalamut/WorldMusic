@@ -1,0 +1,71 @@
+package com.worldmusic.WorldMusicSpring.controllers.guest;
+
+import com.worldmusic.WorldMusicSpring.model.Clip;
+import com.worldmusic.WorldMusicSpring.model.Comment;
+import com.worldmusic.WorldMusicSpring.model.User;
+import com.worldmusic.WorldMusicSpring.services.ClipService;
+import com.worldmusic.WorldMusicSpring.services.CommentService;
+import com.worldmusic.WorldMusicSpring.services.CountryService;
+import com.worldmusic.WorldMusicSpring.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
+
+@Controller
+public class ChartController {
+
+    @Autowired
+    private CountryService countryService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private ClipService clipService;
+
+    @Autowired
+    private CommentService commentService;
+
+    @GetMapping("/charts")
+    public String getCharts(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+        model.addAttribute("user",user);
+        model.addAttribute("countries",countryService.getCountriesWithClips());
+        return "guest/charts";
+    }
+
+    @GetMapping("/charts/clip/{id}")
+    public String getChartClip(@PathVariable int id, Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+        model.addAttribute("user",user);
+        model.addAttribute("clip",clipService.getClip(id));
+        model.addAttribute("commentCount", clipService.getCommentCount(id));
+        return "guest/clip";
+    }
+
+    @PostMapping(value = "/charts/clip/{id}/comment", name = "charts.clip.comment")
+    public RedirectView commentClip(@PathVariable int id,
+                                    @RequestParam String commentText,
+                                    Model model) {
+        Comment comment = new Comment();
+        Clip clip = clipService.getClip(id);
+        comment.setClip(clip);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+        comment.setUser(user);
+        comment.setComment(commentText);
+        commentService.addComment(comment);
+        model.addAttribute("user",user);
+        model.addAttribute("clip",clip);
+        return new RedirectView("/charts/clip/" + clip.getId());
+    }
+}

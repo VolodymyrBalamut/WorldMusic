@@ -38,8 +38,8 @@
                         <td th:text="${comment.id}"></td>
                         <td th:text="${comment.User.name}"></td>
                         <td th:text="${comment.comment}"></td>
-                        <td th:text="${#dates.format(comment.createdDate, 'dd-MM-yyyy HH:mm')}"></td>
-                        <td th:text="${#dates.format(comment.updatedDate, 'dd-MM-yyyy HH:mm')}"></td>
+                        <td th:text="${#dates.format(comment.createdDate, 'dd-MM-yyyy, HH:mm')}"></td>
+                        <td th:text="${#dates.format(comment.updatedDate, 'dd-MM-yyyy, HH:mm')}"></td>
                         <td>
                         <a href="#" class="btn btn-xs btn-primary">
                             <i class="fas fa-pencil-alt"></i>

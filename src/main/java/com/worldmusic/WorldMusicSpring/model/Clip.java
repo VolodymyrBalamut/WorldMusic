@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 
 @Data
@@ -21,6 +22,8 @@ public class Clip {
     private int id;
     private String name;
     private String url;
+    @Column(name="count_likes")
+    private int countLikes;
     @ManyToOne
     //@JoinColumn(name = "artist_id")
     private Artist artist;
@@ -32,6 +35,11 @@ public class Clip {
     @OneToMany(mappedBy = "clip")
     private List<Comment> comments;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "voting",
+              joinColumns = @JoinColumn(name = "user_id"),
+              inverseJoinColumns = @JoinColumn(name = "clip_id"))
+    private List<User> userLikes;
 
     public Clip(int id){
         this.id = id;
