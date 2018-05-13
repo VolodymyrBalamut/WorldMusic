@@ -32,6 +32,7 @@ public class Clip {
     @ManyToOne
     private Country country;
 
+
     @OneToMany(mappedBy = "clip")
     private List<Comment> comments;
 

@@ -42,6 +42,18 @@ public class ChartController {
         return "guest/charts";
     }
 
+    @GetMapping("/charts/country/{id}")
+    public String getChartCoutnry(@PathVariable int id, Model model){
+        //Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        //User user = userService.findUserByEmail(auth.getName());
+        //model.addAttribute("user",user);
+        //model.addAttribute("clip",clipService.getClip(id));
+        //model.addAttribute("commentCount", clipService.getCommentCount(id));
+        //model.addAttribute("likesCount",clipService.getLikesCount(id));
+        model.addAttribute("country",countryService.getCountry(id));
+        return "guest/countrychart";
+    }
+
     @GetMapping("/charts/clip/{id}")
     public String getChartClip(@PathVariable int id, Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

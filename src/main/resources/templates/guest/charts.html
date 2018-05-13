@@ -3,31 +3,25 @@
 <head th:replace="template :: head">
 </head>
 <body>
-<div class="container">
-    <nav th:replace="template::menu"></nav>
-        <h1>Charts</h1>
+<nav th:replace="template::menu"></nav>
+<div class="container charts">
         <div class="row">
-            <div class="col-md-3" th:each="country : ${countries}">
-                <p th:text="${country.name}"></p>
-                <table class="table">
-                    <thead>
-                    <th>Ranking</th>
-                    <th>Name</th>
-                    </thead>
-                    <tbody>
-                    <td></td>
-                    <th:block th:each="clip : ${country.clips}">
-                        <tr>
-                            <td>1</td>
-                            <td>
-                                <a th:href="@{'/charts/clip/' + ${clip.id}}"
-                                   th:text="${clip.Artist.name} + '-' +${clip.name}">
-                                </a>
-                            </td>
+            <div class="card-deck" >
+                <div class="card" style="width: 18rem;" th:each="country : ${countries}">
+                    <!--<img class="card-img-top" src="..." alt="Card image cap">-->
+                    <div class="card-header" th:text="${country.name}"></div>
 
-                        </tr>
-                    </th:block>
-                </table>
+                    <div class="card-body">
+                        <div class="list-group" th:each="clip : ${country.clips}">
+
+                            <a th:href="@{'/charts/clip/' + ${clip.id}}" class="list-group-item list-group-item-action"
+                                th:text="${country.clips.indexOf(clip) + 1} + '. ' +${clip.Artist.name} + ' - ' +${clip.name}"></a>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a th:href="@{'/charts/country/' + ${country.id}}" class="card-link">View all chart</a>
+                    </div>
+                </div>
             </div>
         </div>
 

@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head th:fragment="head">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
@@ -8,64 +9,39 @@
 </head>
 <body>
 <nav th:fragment="menu" class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">World Music</a>
+    <a class="navbar-brand" href="/">World Music</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
+        <ul class="navbar-nav mr-auto" >
+            <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
                 <a class="nav-link" href="/admin/clips">Clips</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
                 <a class="nav-link" href="/admin/artists">Artists</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
                 <a class="nav-link" href="/admin/styles">Styles</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
                 <a class="nav-link" href="/admin/countries">Countries</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
                 <a class="nav-link" href="/admin/users">Users</a>
             </li>
         </ul>
-            <ul class="nav navbar-nav navbar-right">
-               <!--<div sec:authorize="hasRole('ADMIN')">-->
-                <div th:if="${user!=null}">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            Hello <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li class="nav-item">
-                                <p th:text="${user!=null}?${user.name}:''"></p>
-                            </li>
-                            <li role="separator" class="divider"></li>
-                            <li class="nav-item">
-                                <a th:href="${'/logout'}"
-                                   onclick="event.preventDefault();
-                                 document.getElementById('logout-form').submit();">
-                                    Logout
-                                </a>
-
-                                <form id="logout-form" th:action="${'/logout'}" method="POST" style="display: none;">
-                                </form>
-
-                            </li>
-
-                        </ul>
-                    </li>
-                </div>
-                <!--<div sec:authorize="!isAuthenticated()">-->
-                <div th:if="${user==null}">
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="${'/login'}">Login</a>
-                    </li>
-                </div>
+        <ul class="nav navbar-nav navbar-right">
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" th:href="${'#'}">My Account</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" th:href="${'/logout'}">Logout</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link" th:href="${'/login'}">Login</a>
+                </li>
         </ul>
 
 

@@ -22,6 +22,7 @@ public class Country {
     private String name;
 
     @OneToMany(mappedBy = "country")
+    @OrderBy("countLikes desc")
     private List<Clip> clips;
 
 
