@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -25,6 +26,12 @@ public class Country {
     @OrderBy("countLikes desc")
     private List<Clip> clips;
 
+    public List<Clip> getTopClips(int count){
+        if(clips.size() < count) {
+            count = clips.size();
+        }
+        return new ArrayList<Clip>(clips.subList(0, count));
+    }
 
     public Country(int id){
         this.id = id;

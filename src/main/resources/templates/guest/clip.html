@@ -10,20 +10,22 @@
         <div class="col-md-8 offset-md-2">
 
             <div id="countView" class="views"> перегляди</div>
-            <iframe width="640" height="360"
+            <iframe width="100%" height="450px"
                     th:src="@{'https://www.youtube.com/embed/' + ${clip.url}}"
                     allowfullscreen>
             </iframe>
             <div class="views">
                 <span id="countLike"> <i class="fas fa-thumbs-up"></i></span>
                 <span id="countDislike"> <i class="fas fa-thumbs-down"></i></span>
+                <!--section vote-->
+                <!--<p th:text="${likesCount}"></p>-->
+                <!--<p th:text="${clip.countLikes}"></p>-->
+                <form th:action="@{ ${clip.id} + '/vote'}" method="post">
+                    <input class="btn btn-primary float-right" type=submit
+                           th:value="Vote + ' ' + ${clip.countLikes}">
+                </form>
             </div>
-            <!--section vote-->
-            <!--<p th:text="${likesCount}"></p>-->
-            <p th:text="${clip.countLikes}"></p>
-            <form action="#" th:action="@{ ${clip.id} + '/vote'}" method="post">
-                <input class="btn btn-primary btn-block" type=submit value="Vote">
-            </form>
+
 
             <!-- end of section vote-->
 

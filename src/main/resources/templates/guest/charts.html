@@ -6,14 +6,13 @@
 <nav th:replace="template::menu"></nav>
 <div class="container charts">
         <div class="row">
-            <div class="card-deck" >
-                <div class="card" style="width: 18rem;" th:each="country : ${countries}">
+            <div class="d-flex flex-row flex-wrap">
+                <div class="card mycard" th:each="country : ${countries}">
                     <!--<img class="card-img-top" src="..." alt="Card image cap">-->
                     <div class="card-header" th:text="${country.name}"></div>
-
-                    <div class="card-body">
-                        <div class="list-group" th:each="clip : ${country.clips}">
-
+                    <div class="card-body mycard-body">
+                        <div class="list-group"
+                             th:each="clip : ${country.getTopClips(5)}">
                             <a th:href="@{'/charts/clip/' + ${clip.id}}" class="list-group-item list-group-item-action"
                                 th:text="${country.clips.indexOf(clip) + 1} + '. ' +${clip.Artist.name} + ' - ' +${clip.name}"></a>
                         </div>

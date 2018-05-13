@@ -68,9 +68,23 @@
     padding-top: 20px;
 }
 
-.card-body {
+.mycard {
+    margin-right: 35px;
+    margin-bottom: 35px;
+    width: 20rem;
+}
+.mycard-body {
     padding: 0 !important;
 }
 .list-group {
     border: 0 !important;
+}
+.list-group-item {
+    border-top: 0 !important;
+    border-right: 0 !important;
+    border-left: 0 !important;
+}
+
+.card-footer {
+    border-top: 0 !important;
 }
