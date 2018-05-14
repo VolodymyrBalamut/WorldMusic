@@ -23,7 +23,9 @@ public class Artist
     private int id;
     private String name;
     private String biography;
-    private String country_code;
+   // private String country_code;
+    @ManyToOne
+    private Country country;
     @OneToMany(mappedBy = "artist")
     private List<Clip> clips;
 

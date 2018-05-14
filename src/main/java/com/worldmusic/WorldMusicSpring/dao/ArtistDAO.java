@@ -69,7 +69,7 @@ public class ArtistDAO implements IDAO<Artist>{
                 .id(rs.getInt("id"))
                 .name(rs.getString("name"))
                 .biography(rs.getString("biography"))
-                .country_code(rs.getString("country_code"))
+                //.country_code(rs.getString("country_code"))
                 .build();
         return artist;
     }

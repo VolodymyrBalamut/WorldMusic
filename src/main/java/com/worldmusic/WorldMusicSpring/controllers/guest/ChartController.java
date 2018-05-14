@@ -1,8 +1,6 @@
 package com.worldmusic.WorldMusicSpring.controllers.guest;
 
-import com.worldmusic.WorldMusicSpring.model.Clip;
-import com.worldmusic.WorldMusicSpring.model.Comment;
-import com.worldmusic.WorldMusicSpring.model.User;
+import com.worldmusic.WorldMusicSpring.model.*;
 import com.worldmusic.WorldMusicSpring.services.ClipService;
 import com.worldmusic.WorldMusicSpring.services.CommentService;
 import com.worldmusic.WorldMusicSpring.services.CountryService;
@@ -63,6 +61,22 @@ public class ChartController {
         model.addAttribute("commentCount", clipService.getCommentCount(id));
         model.addAttribute("likesCount",clipService.getLikesCount(id));
         return "guest/clip";
+    }
+
+    @GetMapping("/charts/clip/{id}/artist")
+    public String getChartClipArtist(@PathVariable int id, Model model){
+        Clip clip = clipService.getClip(id);
+        Artist artist = clip.getArtist();
+        model.addAttribute("artist",artist);
+        return "guest/artist";
+    }
+
+    @GetMapping("/charts/clip/{id}/style")
+    public String getChartClipStyle(@PathVariable int id, Model model){
+        Clip clip = clipService.getClip(id);
+        Style style = clip.getStyle();
+        model.addAttribute("style",style);
+        return "guest/style";
     }
 
     @PostMapping(value = "/charts/clip/{id}/comment", name = "charts.clip.comment")

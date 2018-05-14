@@ -36,7 +36,7 @@
                 <div class="card-header">Artist</div>
                 <div class="card-body">
                     <p th:text="'Biography: ' + ${artist.biography}"></p>
-                    <p th:text="'Country: ' +${artist.country_code}"></p>
+                    <p th:text="'Country: ' +${artist.country.getName()}"></p>
                     <div class="row">
                         <div class="col-sm-6">
                             <a th:href="@{ ${artist.id} + '/edit'}" class="btn btn-primary btn-block">Edit</a>

@@ -59,12 +59,13 @@ public class ArtistController {
     @PostMapping("/admin/artists/create")
     public RedirectView createArtist(@RequestParam String name,
                                    @RequestParam String biography,
-                                   @RequestParam String country_code,
+                                   @RequestParam int country_id,
                                    Model model) {
         Artist artist = new Artist();
         artist.setName(name);
         artist.setBiography(biography);
-        artist.setCountry_code(country_code);
+        //artist.setCountry_code(country_code);
+        artist.setCountry(countryService.getCountry(country_id));
         artistService.addArtist(artist);
         return new RedirectView("/admin/artists");
     }
@@ -96,13 +97,14 @@ public class ArtistController {
     public RedirectView updateArtist(@PathVariable int id,
                                    @RequestParam String name,
                                    @RequestParam String biography,
-                                   @RequestParam String country_code,
+                                   @RequestParam int country_id,
                                    Model model) {
         Artist artist = new Artist();
         artist.setId(id);
         artist.setName(name);
         artist.setBiography(biography);
-        artist.setCountry_code(country_code);
+        //artist.setCountry_code(country_code);
+        artist.setCountry(countryService.getCountry(country_id));
         artistService.updateArtist(artist);
         return new RedirectView("/admin/artists");
     }

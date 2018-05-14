@@ -33,7 +33,8 @@ dependencies {
 	//testCompile('org.springframework.security:spring-security-test')
 	compile 'org.postgresql:postgresql:9.4-1203-jdbc42'
 	compile("org.springframework.boot:spring-boot-starter-thymeleaf")
-	compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity4', version: '3.0.2.RELEASE'
+	compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity4')
+	//compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity4', version: '3.0.2.RELEASE'
 
 
 	/*Thymeleaf doesn`t use*/

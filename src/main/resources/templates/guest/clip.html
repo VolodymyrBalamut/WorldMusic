@@ -32,6 +32,20 @@
             <br>
             <input id="url" th:value="${clip.url}" hidden="true">
             <hr>
+            <p>Artist:
+                <a th:text="${clip.artist.getName()}"
+                   th:href="@{${clip.id} + '/artist'}"></a>
+            </p>
+            <p>Country:
+                <a th:text="${clip.country.getName()}"
+                   th:href="@{'/charts/country/' + ${clip.country.getId()}}"></a>
+            </p>
+            <p>Style:
+                <a th:text="${clip.style.getName()}"
+                   th:href="@{${clip.id} + '/style'}"></a>
+            </p>
+
+            <hr>
 
             <h3 class="comments-title"><span class="comments-icon">
                 <i class="fas fa-comment"></i></span>

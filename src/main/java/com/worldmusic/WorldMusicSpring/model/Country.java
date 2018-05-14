@@ -26,6 +26,9 @@ public class Country {
     @OrderBy("countLikes desc")
     private List<Clip> clips;
 
+    @OneToMany(mappedBy = "country")
+    private List<Artist> artists;
+
     public List<Clip> getTopClips(int count){
         if(clips.size() < count) {
             count = clips.size();

@@ -20,10 +20,10 @@
                 </div>
 
                 <div class="form-group">
-                    <label name="style_id">Country:</label>
-                    <select class="form-control" name="country_code">
+                    <label name="country_id">Country:</label>
+                    <select class="form-control" name="country_id">
                         <option  th:each="country : ${countries}"
-                                 th:value="${country.code_id}"
+                                 th:value="${country.id}"
                                  th:text="${country.name}"
                                  th:selected="(${country.code_id})">
                         </option>
