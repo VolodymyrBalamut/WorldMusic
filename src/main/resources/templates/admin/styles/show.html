@@ -3,8 +3,8 @@
 <head th:replace="template :: head">
 </head>
 <body>
+<nav th:replace="template::menu"></nav>
 <div class="container">
-    <nav th:replace="template::menu"></nav>
     <h1 class="text-center" th:text="${style.name}">Text</h1>
     <div class="row">
         <div class="col-md-8">

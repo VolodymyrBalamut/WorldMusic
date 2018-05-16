@@ -3,8 +3,8 @@
 <head th:replace="template :: head">
 </head>
 <body>
+<nav th:replace="template::menu"></nav>
 <div class="container">
-    <nav th:replace="template::menu"></nav>
     <h1 class="text-center" th:text="${clip.name}">Text</h1>
     <div class="row">
         <div class="col-md-8">
@@ -66,6 +66,11 @@
             <div class="card bg-light mb-3" style="max-width: 18rem;">
                 <div class="card-header">Clip</div>
                 <div class="card-body">
+                    <p>URL:
+                        <a th:href="@{'/charts/clip/' + ${clip.id}}"
+                           th:text="@{'/charts/clip/' + ${clip.id}}">
+                        </a>
+                    </p>
                     <p>Artist:
                         <a th:href="@{'/admin/artists/' + ${clip.Artist.id}}"
                            th:text="${clip.Artist.name}">

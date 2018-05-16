@@ -1,10 +1,11 @@
 package com.worldmusic.WorldMusicSpring.services;
-
+import org.springframework.data.domain.Sort;
 import com.worldmusic.WorldMusicSpring.model.Country;
 import com.worldmusic.WorldMusicSpring.repositories.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,7 +18,9 @@ public class CountryService {
 
     public List<Country> getAllCountries(){
         List<Country> countries = new ArrayList<>();
-        countryRepository.findAll()
+        //Pageable pageable;
+        Sort sort = new Sort(Sort.Direction.ASC, "name");
+        countryRepository.findAll(sort)
                 .forEach(countries::add);
         return countries;
     }
