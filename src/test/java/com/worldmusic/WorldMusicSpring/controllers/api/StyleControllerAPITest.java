@@ -1,33 +1,31 @@
-package com.worldmusic.WorldMusicSpring.controllersAPI;
-
+package com.worldmusic.WorldMusicSpring.controllers.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.worldmusic.WorldMusicSpring.model.Artist;
-import com.worldmusic.WorldMusicSpring.model.Clip;
 import com.worldmusic.WorldMusicSpring.model.Style;
-import com.worldmusic.WorldMusicSpring.services.ClipService;
+import com.worldmusic.WorldMusicSpring.services.StyleService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.lang.Nullable;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 import java.nio.charset.Charset;
 
 import static org.hamcrest.core.IsEqual.equalTo;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.junit.Assert.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ClipControllerAPITest {
+public class StyleControllerAPITest {
     private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
             MediaType.APPLICATION_JSON.getSubtype(),
             Charset.forName("utf8"));
@@ -43,56 +41,61 @@ public class ClipControllerAPITest {
     }
 
     @Test
-    public void testGetAllClips() throws Exception {
-        mockMvc.perform(get("/api/clips").accept(MediaType.APPLICATION_JSON))
+    public void testGetAllStyles() throws Exception {
+        mockMvc.perform(get("/api/styles").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void testGetClip() throws Exception {
-        mockMvc.perform(get("/api/clips/50").accept(MediaType.APPLICATION_JSON))
+    public void testGetStyle() throws Exception {
+        mockMvc.perform(get("/api/styles/1").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id", equalTo(50)));
+                .andExpect(jsonPath("$.id", equalTo(1)));
     }
 
     @Test
-    public void testCreateClip() throws Exception {
-        Clip clip = Clip.builder()
-                .name("Test").url("fdfd")
+    public void testGetTopStyle() throws Exception {
+        StyleService styleService = new StyleService();
+        Style style = styleService.getTopStyle();
+        int id = style.getId();
+        mockMvc.perform(get("/api/styles/top").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", equalTo(id)));
+    }
+    @Test
+    public void testCreateStyle() throws Exception {
+        Style style = Style.builder()
+                .name("POP").description("It is POP style")
                 .build();
-        clip.setArtist(new Artist(5,"","",null,null));
-        clip.setStyle(new Style(1));
         ObjectMapper mapper = new ObjectMapper();
-        String jsonInString = mapper.writeValueAsString(clip);
+        String jsonInString = mapper.writeValueAsString(style);
 
-        this.mockMvc.perform(post("/api/clips")
+        this.mockMvc.perform(post("/api/styles")
                 .contentType(contentType)
                 .content(jsonInString))
                 .andExpect(status().isCreated());
     }
 
     @Test
-    public void testUpdateClip() throws Exception {
-        Clip clip = Clip.builder().id(50)
-                .name("TestUpdate").url("fdfd")
-                .build();
-        clip.setArtist(new Artist(5,"","",null,null));
-        clip.setStyle(new Style(1));
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonInString = mapper.writeValueAsString(clip);
+    public void testUpdateStyle() throws Exception {
+        Style topStyle = new StyleService().getTopStyle();
 
-        this.mockMvc.perform(put("/api/clips/50")
+        Style style = Style.builder().id(topStyle.getId())
+                .name("POP2").description("It is POP2 style")
+                .build();
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonInString = mapper.writeValueAsString(style);
+
+        this.mockMvc.perform(put("/api/clips/"+ topStyle.getId())
                 .contentType(contentType)
                 .content(jsonInString))
                 .andExpect(status().isCreated());
     }
 
     @Test
-    public void testDeleteClip() throws Exception {
-        ClipService clipService = new ClipService();
-        int id = 69;
-        mockMvc.perform(delete("/api/clips/"+id).accept(MediaType.APPLICATION_JSON))
+    public void testDeleteStyle() throws Exception {
+        Style topStyle = new StyleService().getTopStyle();
+        mockMvc.perform(delete("/api/styles/"+topStyle.getId()).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
-
 }

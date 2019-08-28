@@ -1,6 +1,8 @@
 package com.worldmusic.WorldMusicSpring.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,8 +27,10 @@ public class Artist
     private String biography;
    // private String country_code;
     @ManyToOne
+    @JsonBackReference
     private Country country;
     @OneToMany(mappedBy = "artist")
+    @JsonManagedReference
     private List<Clip> clips;
 
     public Artist(int id){

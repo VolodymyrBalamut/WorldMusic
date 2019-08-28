@@ -5,6 +5,7 @@ import com.worldmusic.WorldMusicSpring.repositories.StyleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +26,22 @@ public class StyleService {
         return styleRepository.findById(id).get();
     }
 
+
+    public Style getTopStyle() {
+        Style style;
+
+           try {
+
+                    style = styleRepository.findFirstByOrderByIdDesc();
+
+           }
+           catch (NullPointerException npe) {
+               style = new Style(409);
+            }
+        return style;
+    }
+
+    public Style getFirstStyle() { return styleRepository.findFirstByOrderByIdAsc(); }
 
     public Style addStyle(Style style){
         styleRepository.save(style);

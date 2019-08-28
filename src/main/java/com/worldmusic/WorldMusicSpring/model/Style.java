@@ -1,5 +1,6 @@
 package com.worldmusic.WorldMusicSpring.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,10 +23,15 @@ public class Style {
     private String name;
     private String description;
 
-    @OneToMany(mappedBy = "style")
+    @OneToMany(mappedBy = "style", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Clip> clips;
 
     public Style(int id) {
         this.id = id;
+    }
+    public Style(String name, String description) {
+        this.name = name;
+        this.description = description;
     }
 }

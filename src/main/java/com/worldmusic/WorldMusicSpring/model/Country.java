@@ -1,5 +1,6 @@
 package com.worldmusic.WorldMusicSpring.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +24,7 @@ public class Country {
     private String name;
 
     @OneToMany(mappedBy = "country")
+    @JsonManagedReference
     @OrderBy("countLikes desc")
     private List<Clip> clips;
 

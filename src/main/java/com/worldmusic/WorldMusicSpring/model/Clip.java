@@ -1,5 +1,6 @@
 package com.worldmusic.WorldMusicSpring.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,10 +27,13 @@ public class Clip {
     private int countLikes;
     @ManyToOne
     //@JoinColumn(name = "artist_id")
+    @JsonBackReference
     private Artist artist;
     @ManyToOne
+    @JsonBackReference
     private Style style;
     @ManyToOne
+    @JsonBackReference
     private Country country;
 
 
