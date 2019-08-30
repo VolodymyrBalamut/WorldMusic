@@ -27,6 +27,8 @@ public class ClipService {
         return clipRepository.findById(id).get();
     }
 
+    public Clip getFirstStyle() { return clipRepository.findFirstByOrderByIdAsc(); }
+
     public List<Clip> getClipByUrl(String url){
         return clipRepository.findByUrl(url);
     }

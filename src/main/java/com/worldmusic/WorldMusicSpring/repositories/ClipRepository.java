@@ -9,4 +9,5 @@ import java.util.List;
 public interface ClipRepository extends CrudRepository<Clip,Integer> {
     List<Clip> findByUrl(String url);
     //List<Clip> findByArtistId(int artistId);
+    Clip findFirstByOrderByIdAsc();
 }
