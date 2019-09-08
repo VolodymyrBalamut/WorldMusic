@@ -29,7 +29,8 @@ public class Artist
     @ManyToOne
     @JsonBackReference
     private Country country;
-    @OneToMany(mappedBy = "artist")
+
+    @ManyToMany(mappedBy = "clipArtists")
     @JsonManagedReference
     private List<Clip> clips;
 

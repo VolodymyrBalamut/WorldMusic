@@ -6,7 +6,7 @@
 <nav th:replace="template::menu"></nav>
 <div class="container">
 
-    <h1 class="text-center" th:text="${clip.Artist.name} + ' - ' + ${clip.name}">Text</h1>
+    <h1 class="text-center" th:text="${clip.getFirstArtist().name} + ' - ' + ${clip.name}">Text</h1>
     <div class="row">
         <div class="col-md-8 offset-md-2">
 
@@ -34,8 +34,10 @@
             <input id="url" th:value="${clip.url}" hidden="true">
             <hr>
             <p>Artist:
-                <a th:text="${clip.artist.getName()}"
-                   th:href="@{${clip.id} + '/artist'}"></a>
+                <span th:each="artist : ${clip.clipArtists}">
+                     <a th:text="${artist.getName()}"
+                        th:href="@{${artist.id} + '/artist'}"></a>
+                </span>
             </p>
             <p>Country:
                 <a th:text="${clip.country.getName()}"

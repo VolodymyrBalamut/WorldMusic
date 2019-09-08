@@ -69,8 +69,8 @@ public class ChartController {
     @GetMapping("/charts/clip/{id}/artist")
     public String getChartClipArtist(@PathVariable int id, Model model){
         Clip clip = clipService.getClip(id);
-        Artist artist = clip.getArtist();
-        model.addAttribute("artist",artist);
+        List<Artist> artists = clip.getClipArtists();
+        model.addAttribute("artist",artists.get(0));
         return "guest/artist";
     }
 

@@ -1,5 +1,6 @@
 package com.worldmusic.WorldMusicSpring.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -49,5 +50,6 @@ public class User {
     private Set<Role> roles;
 
     @ManyToMany(mappedBy = "userLikes")
+    @JsonBackReference
     private List<Clip> clips;
 }

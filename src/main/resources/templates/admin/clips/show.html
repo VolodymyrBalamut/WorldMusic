@@ -72,14 +72,18 @@
                         </a>
                     </p>
                     <p>Artist:
-                        <a th:href="@{'/admin/artists/' + ${clip.Artist.id}}"
-                           th:text="${clip.Artist.name}">
-                        </a>
+                        <span th:each="artist : ${clip.clipArtists}">
+                            <a th:href="@{'/admin/artists/' + ${artist.id}}"
+                               th:text="${artist.name}">
+                            </a>
+                        </span>
                     </p>
-                    <p>Style:
-                        <a th:href="@{'/admin/styles/' + ${clip.Style.id}}"
-                           th:text="${clip.Style.name}">
-                        </a>
+                    <p>Styles:
+                        <span th:each="style : ${clip.clipStyles}">
+                            <a th:href="@{'/admin/styles/' + ${style.id}}"
+                               th:text="${style.name}">
+                            </a>
+                        </span>
                     </p>
                     <p>Country:
                         <a th:href="@{'/admin/countries/' + ${clip.Country.id}}"

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -76,10 +77,17 @@ public class ClipController {
                              @RequestParam String country_id,
                              Model model) {
         Clip clip = new Clip();
+        List<Style> styles = new ArrayList<>();
+        styles.add(new Style(Integer.parseInt(style_id)));
+
+        List<Artist> artists = new ArrayList<>();
+        artists.add(new Artist(Integer.parseInt(artist_id)));
+
+
         clip.setName(name);
         clip.setUrl(url);
-        clip.setArtist(new Artist(Integer.parseInt(artist_id)));
-        //clip.setStyle(new Style(Integer.parseInt(style_id)));
+        clip.setClipArtists(artists);
+        clip.setClipStyles(styles);
         clip.setCountry(new Country(Integer.parseInt(country_id)));
         clipService.addClip(clip);
         return new RedirectView("/admin/clips/"  + clip.getId());
@@ -124,11 +132,17 @@ public class ClipController {
                                            @RequestParam String country_id,
                                            Model model) {
         Clip clip = new Clip();
+        List<Style> styles = clip.getClipStyles();
+        styles.add(new Style(Integer.parseInt(style_id)));
+
+        List<Artist> artists = clip.getClipArtists();
+        artists.add(new Artist(Integer.parseInt(artist_id)));
+
         clip.setId(id);
         clip.setName(name);
         clip.setUrl(url);
-        clip.setArtist(new Artist(Integer.parseInt(artist_id)));
-        //clip.setStyle(new Style(Integer.parseInt(style_id)));
+        clip.setClipArtists(artists);
+        clip.setClipStyles(styles);
         clip.setCountry(new Country(Integer.parseInt(country_id)));
         clipService.updateClip(clip);
         return new RedirectView("/admin/clips/" + clip.getId());

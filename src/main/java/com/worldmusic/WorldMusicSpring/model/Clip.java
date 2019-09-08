@@ -1,6 +1,7 @@
 package com.worldmusic.WorldMusicSpring.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,15 +27,19 @@ public class Clip {
     private String url;
     @Column(name="count_likes")
     private int countLikes;
-    @ManyToOne
-    //@JoinColumn(name = "artist_id")
+
+
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JsonBackReference
-    private Artist artist;
+    @JoinTable(
+            name = "clip_artist",
+            joinColumns = @JoinColumn(name = "clip_id"),
+            inverseJoinColumns = @JoinColumn(name = "artist_id"))
+    private List<Artist> clipArtists;
 
 
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    //@JsonBackReference
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JsonBackReference
     @JoinTable(
             name = "clip_style",
             joinColumns = @JoinColumn(name = "clip_id"),
@@ -47,9 +52,11 @@ public class Clip {
 
 
     @OneToMany(mappedBy = "clip")
+    @JsonManagedReference
     private List<Comment> comments;
 
     @ManyToMany(cascade = CascadeType.ALL)
+    @JsonManagedReference
     @JoinTable(name = "voting",
               joinColumns = @JoinColumn(name = "clip_id"),
               inverseJoinColumns = @JoinColumn(name = "user_id"))
@@ -64,4 +71,12 @@ public class Clip {
         this.artist = new Artist(artistId,"","","");
         this.style = new Style(styleId,"","");
     }*/
+
+    public Artist getFirstArtist(){
+        return this.clipArtists.get(0);
+    }
+
+    public Style getFirstStyle(){
+        return this.clipStyles.get(0);
+    }
 }

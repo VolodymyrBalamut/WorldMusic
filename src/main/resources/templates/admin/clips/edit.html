@@ -25,7 +25,7 @@
                         <option  th:each="artist : ${artists}"
                                  th:value="${artist.id}"
                                  th:text="${artist.name}"
-                                 th:selected="(${artist.id == clip.Artist.id})" >
+                                 th:selected="(${artist.id == clip.getFirstArtist().id})" >
                         </option>
                     </select>
                 </div>
@@ -35,7 +35,7 @@
                         <option  th:each="style : ${styles}"
                                  th:value="${style.id}"
                                  th:text="${style.name}"
-                                 th:selected="(${style.id == clip.Style.id})" >
+                                 th:selected="(${style.id == clip.getFirstStyle().id})" >
                         </option>
                     </select>
                 </div>
