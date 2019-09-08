@@ -31,3 +31,7 @@ INSERT INTO public.roles(role_id, role)
 INSERT INTO public.roles(role_id, role)
     VALUES (2, 'USER');
 ```
+
+ER-diagram:
+
+![](RelationalDiagram.png)
