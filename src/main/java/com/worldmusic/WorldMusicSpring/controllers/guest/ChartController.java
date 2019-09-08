@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class ChartController {
 
@@ -74,7 +77,9 @@ public class ChartController {
     @GetMapping("/charts/clip/{id}/style")
     public String getChartClipStyle(@PathVariable int id, Model model){
         Clip clip = clipService.getClip(id);
-        Style style = clip.getStyle();
+        //Style style = clip.getStyle();
+        List<Style> styles = new ArrayList<>(clip.getClipStyles());
+        Style style = styles.get(0);
         model.addAttribute("style",style);
         return "guest/style";
     }

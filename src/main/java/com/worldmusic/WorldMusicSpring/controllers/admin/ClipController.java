@@ -79,7 +79,7 @@ public class ClipController {
         clip.setName(name);
         clip.setUrl(url);
         clip.setArtist(new Artist(Integer.parseInt(artist_id)));
-        clip.setStyle(new Style(Integer.parseInt(style_id)));
+        //clip.setStyle(new Style(Integer.parseInt(style_id)));
         clip.setCountry(new Country(Integer.parseInt(country_id)));
         clipService.addClip(clip);
         return new RedirectView("/admin/clips/"  + clip.getId());
@@ -128,7 +128,7 @@ public class ClipController {
         clip.setName(name);
         clip.setUrl(url);
         clip.setArtist(new Artist(Integer.parseInt(artist_id)));
-        clip.setStyle(new Style(Integer.parseInt(style_id)));
+        //clip.setStyle(new Style(Integer.parseInt(style_id)));
         clip.setCountry(new Country(Integer.parseInt(country_id)));
         clipService.updateClip(clip);
         return new RedirectView("/admin/clips/" + clip.getId());

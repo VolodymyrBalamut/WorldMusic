@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -29,9 +30,17 @@ public class Clip {
     //@JoinColumn(name = "artist_id")
     @JsonBackReference
     private Artist artist;
-    @ManyToOne
-    @JsonBackReference
-    private Style style;
+
+
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    //@JsonBackReference
+    @JoinTable(
+            name = "clip_style",
+            joinColumns = @JoinColumn(name = "clip_id"),
+            inverseJoinColumns = @JoinColumn(name = "style_id"))
+    private List<Style> clipStyles;
+
     @ManyToOne
     @JsonBackReference
     private Country country;

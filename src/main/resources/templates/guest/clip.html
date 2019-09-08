@@ -41,9 +41,11 @@
                 <a th:text="${clip.country.getName()}"
                    th:href="@{'/charts/country/' + ${clip.country.getId()}}"></a>
             </p>
-            <p>Style:
-                <a th:text="${clip.style.getName()}"
-                   th:href="@{${clip.id} + '/style'}"></a>
+           <p>Style:
+               <span th:each="style : ${clip.clipStyles}">
+                   <a th:text="${style.getName()}"
+                      th:href="@{${clip.id} + '/style'}"></a>
+               </span>
             </p>
 
             <hr>

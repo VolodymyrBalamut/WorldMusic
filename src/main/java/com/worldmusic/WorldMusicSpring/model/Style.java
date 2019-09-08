@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 
 @Data
@@ -23,9 +24,9 @@ public class Style {
     private String name;
     private String description;
 
-    @OneToMany(mappedBy = "style", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "clipStyles", cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<Clip> clips;
+    private Set<Clip> clips;
 
     public Style(int id) {
         this.id = id;

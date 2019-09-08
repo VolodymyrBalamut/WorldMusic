@@ -2,6 +2,7 @@ package com.worldmusic.WorldMusicSpring.services;
 
 import com.worldmusic.WorldMusicSpring.model.Artist;
 import com.worldmusic.WorldMusicSpring.model.Clip;
+import com.worldmusic.WorldMusicSpring.model.Style;
 import com.worldmusic.WorldMusicSpring.model.User;
 import com.worldmusic.WorldMusicSpring.repositories.ClipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
